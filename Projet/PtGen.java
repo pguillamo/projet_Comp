@@ -215,9 +215,7 @@ public class PtGen {
 
 	private static int tCour; // type de l'expression compilée
 	private static int vCour; // valeur de l'expression compilée le cas echeant
-	private static int idCour; // Stocke le dernier identifiant rencontré
-	private static int catCour; // categorie de l'expression compilée
-	private static int nbVarGlobales;
+
 	
 	// compilation séparée : vecteur de translation et descripteur
 	// -----------------------------------------------------------
@@ -255,19 +253,26 @@ public class PtGen {
 	} // initialisations
 
 	// autres variables et procédures introduites par le trinome
-
+	
+	private static int idCour; // Stocke le dernier identifiant rencontré
+	private static int catCour; // categorie de l'expression compilée
+	private static int nbVarGlobales;
+	private static EltTabSymb symbCour;
+	
 	// code des points de génération à compléter
 	// -----------------------------------------
 	public static void pt(int numGen) {
-		int cat;
+		int cat, i;
 		switch (numGen) {
+		case 255:
+			 afftabSymb(); constGen(); constObj();
+			 break;
 		case 0:
 			initialisations();
 			break;
 		case 1:
-			idCour = presentIdent(UtilLex.numId);
-			if (idCour != 0) {
-				UtilLex.messErr("Identifiant déjà défini \""+ UtilLex.repId(idCour) +"\"");
+			if (presentIdent(1) != 0) {
+				UtilLex.messErr("Identifiant déjà défini : \""+ UtilLex.repId(UtilLex.numId) +"\"");
 			}
 			break;
 		case 2:
@@ -293,14 +298,109 @@ public class PtGen {
 			tCour = BOOL;
 			break;
 		case 10:
-			placeIdent(idCour, CONSTANTE, tCour, vCour);
+			placeIdent(UtilLex.numId, CONSTANTE, tCour, vCour);
 			break;
 		case 11:
-			placeIdent(idCour, VARGLOBALE, tCour, nbVarGlobales);
+			placeIdent(UtilLex.numId, VARGLOBALE, tCour, nbVarGlobales);
 			nbVarGlobales++;
 			break;
 			// traitement des expressions
-
+		case 20:
+			verifBool();
+			break;
+		case 22:
+			verifEnt();
+			break;
+		case 21:
+			produire(ET);
+			break;
+		case 27:
+			produire(OU);
+			break;
+		case 28:
+			produire(NON);
+			break;
+		case 23:
+			tCour = BOOL;
+			produire(EG);
+			break;
+		case 29:
+			tCour = BOOL;
+			produire(DIFF);
+			break;
+		case 30:
+			tCour = BOOL;
+			produire(SUP);
+			break;
+		case 31:
+			tCour = BOOL;
+			produire(SUPEG);
+			break;
+		case 32:
+			tCour = BOOL;
+			produire(INF);
+			break;
+		case 33:
+			tCour = BOOL;
+			produire(INFEG);
+			break;
+		case 24:
+			produire(ADD);
+			break;
+		case 34:
+			produire(SOUS);
+			break;
+		case 25:
+			i = presentIdent(1);
+			if (i == 0)
+				UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
+			tCour = tabSymb[i].type;
+			switch (tabSymb[i].categorie) {
+			case CONSTANTE:
+				produire(EMPILER);
+				produire(tabSymb[i].info);
+				break;
+			case VARGLOBALE:
+				produire(CONTENUG);
+				produire(tabSymb[i].info);
+				break;
+			}
+			break;
+		case 26:
+			produire(EMPILER);
+			produire(vCour);
+			break;
+			
+		case 40:
+			i = presentIdent(1);
+			if (i == 0)
+				UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
+			symbCour = tabSymb[i];
+			break;
+		case 41:
+			switch (symbCour.type) {
+			case BOOL:
+				verifBool();
+				break;
+			case ENT:
+				verifEnt();
+				break;
+			}
+			break;
+		case 42:
+			produire(RESERVER);
+			produire(nbVarGlobales);
+			break;
+		case 43:
+			switch (tCour) {
+			case BOOL:
+				produire(ECRBOOL);
+				break;
+			case ENT:
+				produire(ECRENT);
+				break;
+			}
+			break;
 			// traitement du si
 
 			// traitement du cond
