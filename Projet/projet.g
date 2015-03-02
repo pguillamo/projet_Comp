@@ -137,10 +137,11 @@ instruction:
 ;
 
 inssi:
-    'si' expression
+    'si' expression {PtGen.pt(50);} 
         'alors'  instructions
+        {PtGen.pt(51);}
         ('sinon' instructions)?
-        'fsi' 
+        'fsi' {PtGen.pt(52);}
 ;
 
 inscond:
@@ -155,7 +156,8 @@ boucle:
 ;
 
 lecture:
-    'lire' '(' ident  ( ',' ident  )* ')' 
+    'lire' '(' ident {PtGen.pt(44);}
+         ( ',' ident {PtGen.pt(44);}  )* ')' 
 ;
 
 ecriture:

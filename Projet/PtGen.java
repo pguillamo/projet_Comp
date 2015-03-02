@@ -270,6 +270,8 @@ public class PtGen {
       case 0:
         initialisations();
         break;
+
+      // Traitement des déclarations
       case 1:
         if (presentIdent(1) != 0) {
           UtilLex.messErr("Identifiant déjà défini : \""+ UtilLex.repId(UtilLex.numId) +"\"");
@@ -304,7 +306,8 @@ public class PtGen {
         placeIdent(UtilLex.numId, VARGLOBALE, tCour, nbVarGlobales);
         nbVarGlobales++;
         break;
-        // traitement des expressions
+
+      // Traitement des expressions
       case 20:
         verifBool();
         break;
@@ -401,15 +404,42 @@ public class PtGen {
             break;
         }
         break;
-        // traitement du si
+      case 44:
+        switch (tCour) {
+          case BOOL:
+            produire(LIREBOOL);
+            break;
+          case ENT:
+            produire(LIRENT);
+            break;
+        }
+        break;
 
-        // traitement du cond
+      // Traitement du si
+      case 50:
+        verifBool();
+        produire(BSIFAUX);
+        pileRep.empiler(ipo);
+        produire(0);
+        break;
+      case 51:
+        produire(BINCOND);
+        produire(0);
+        po[pileRep.depiler()] = ipo;
+        pileRep.empiler(ipo);
+        break;
+      case 52:
+        po[pileRep.depiler()] = ipo;
+        break;
 
-        // etc
+      // Traitement du ttq
+
+      // Traitement du cond
+
+      // etc
 
       default:
-        System.out
-          .println("Point de génération non prévu dans votre liste");
+        System.out.println("Point de génération non prévu dans votre liste");
         break;
 
     }
