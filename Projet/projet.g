@@ -146,10 +146,10 @@ inssi:
 ;
 
 inscond:
-    'cond'   expression ':' instructions 
-        (',' expression ':' instructions )* 
-        ('aut'              instructions )?
-        'fcond' 
+    'cond' {PtGen.pt(55);} expression {PtGen.pt(50);} ':' instructions {PtGen.pt(56);} 
+        (','               expression {PtGen.pt(50);} ':' instructions {PtGen.pt(56);} )* 
+        ('aut' instructions )?
+        'fcond' {PtGen.pt(57);} 
 ;
 
 boucle:
