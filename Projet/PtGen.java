@@ -415,14 +415,15 @@ public class PtGen {
         }
         break;
 
-      // Traitement du si
+      // Traitement si/ttq/cond
       case 50:
         verifBool();
         produire(BSIFAUX);
         produire(0);
         pileRep.empiler(ipo);
         break;
-        
+
+      // Traitement du si
       case 51:
         produire(BINCOND);
         produire(0);
@@ -446,6 +447,24 @@ public class PtGen {
         break;
 
       // Traitement du cond
+      case 55:
+        pileRep.empiler(0);
+        break;
+      case 56:
+        int addr_bsifaux = pileRep.depiler();
+        int addr_bincond = pileRep.depiler();
+        produire(BINCOND);
+        produire(addr_bincond);
+        empiler(ipo);
+        break;
+      case 57:
+        int addr_bincond = pileRep.depiler();
+        while (addr_bincond != 0) {
+          empiler(po[addr_bincond]);
+          po[addr_bincond] = ipo+1;
+          addr_bincond = pileRep.depiler();
+        }
+        break;
 
       // etc
 
