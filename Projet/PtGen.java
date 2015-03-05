@@ -416,7 +416,7 @@ public class PtGen {
         break;
 
       // Traitement du si ==> corrigé avec la prof
-      case 50:		
+      case 50:
         verifBool();
         produire(BSIFAUX);
         produire(0);
@@ -434,15 +434,15 @@ public class PtGen {
         break;
 
       // Traitement du ttq
-    	  
+
       case 53:
         int addr_bsifaux = pileRep.depiler();
-    	int addr_debut = pileRep.depiler();
-    	produire(BINCOND);
-    	produire(addr_debut);
-    	po[addr_bsifaux] = ipo+1;
-    	break;
-    	
+        int addr_debut = pileRep.depiler();
+        produire(BINCOND);
+        produire(addr_debut);
+        po[addr_bsifaux] = ipo+1;
+        break;
+
       // Traitement du cond
 
       // etc
