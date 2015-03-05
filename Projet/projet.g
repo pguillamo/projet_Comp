@@ -141,7 +141,7 @@ inssi:
         'alors'  instructions
         {PtGen.pt(51);}
         ('sinon' instructions)?
-        'fsi' {PtGen.pt(52);}
+        'fsi'  {PtGen.pt(52);}
 ;
 
 inscond:
