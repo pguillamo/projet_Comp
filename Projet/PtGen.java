@@ -47,6 +47,7 @@ public class PtGen {
 
             // types permis :
             ENT = 1, BOOL = 2, NEUTRE = 3,
+<<<<<<< HEAD
 
             // catégories possibles :
             CONSTANTE = 1, VARGLOBALE = 2, VARLOCALE = 3, PARAMFIXE = 4,
@@ -58,6 +59,19 @@ public class PtGen {
   private static class EltTabSymb {
     public int code, categorie, type, info;
 
+=======
+
+            // catégories possibles :
+            CONSTANTE = 1, VARGLOBALE = 2, VARLOCALE = 3, PARAMFIXE = 4,
+            PARAMMOD = 5, PROC = 6, DEF = 7, REF = 8, PRIVEE = 9;
+
+  // table des symboles
+  // ------------------
+
+  private static class EltTabSymb {
+    public int code, categorie, type, info;
+
+>>>>>>> 3d587b01d85cab5f80f3ee2c2894d0e29a07ffb4
     public EltTabSymb() {
     }
 
@@ -163,6 +177,7 @@ public class PtGen {
 
     public TpileRep() {
       ip = 0;
+<<<<<<< HEAD
     }
   } // TpileRep
 
@@ -201,6 +216,46 @@ public class PtGen {
           + ".obj");
       System.exit(1);
     }
+=======
+    }
+  } // TpileRep
+
+  private static TpileRep pileRep = new TpileRep();; // chaines de reprise
+  // itérations,
+  // conditionnelles
+
+  // production du code objet en mémoire, dans le tableau po
+  // -------------------------------------------------------
+
+  private static int[] po = new int[MAXOBJ + 1];
+  private static int ipo;
+
+  private static void produire(int codeouarg) {
+    if (ipo == MAXOBJ)
+      UtilLex.messErr("débordement : programme objet trop long");
+    ipo = ipo + 1;
+    po[ipo] = codeouarg;
+  }
+
+  // construction du fichier objet sous forme mnémonique
+  // ---------------------------------------------------
+  private static void constGen() {
+    Mnemo.creerFichier(ipo, po, UtilLex.nomSource + ".gen"); // recopie de
+    // po sous
+    // forme
+    // mnémonique
+  }
+
+  // construction du fichier objet pour MAPILE
+  // -----------------------------------------
+  private static void constObj() {
+    OutputStream f = Ecriture.ouvrir(UtilLex.nomSource + ".obj");
+    if (f == null) {
+      System.out.println("impossible de créer " + UtilLex.nomSource
+          + ".obj");
+      System.exit(1);
+    }
+>>>>>>> 3d587b01d85cab5f80f3ee2c2894d0e29a07ffb4
     for (int i = 1; i <= ipo; i++)
       if (vTrans[i] != -1)
         Ecriture.ecrireStringln(f, i + "   " + vTrans[i]);
@@ -212,6 +267,7 @@ public class PtGen {
   // autres variables et procédures fournies
   // ---------------------------------------
   public static String trinome = "Matthieu Leportier, Antoine Pinsard, Pierre-Yves Guillamo";
+<<<<<<< HEAD
 
   private static int tCour; // type de l'expression compilée
   private static int vCour; // valeur de l'expression compilée le cas echeant
@@ -222,6 +278,18 @@ public class PtGen {
 
   private static int[] vTrans = new int[MAXOBJ + 1];
 
+=======
+
+  private static int tCour; // type de l'expression compilée
+  private static int vCour; // valeur de l'expression compilée le cas echeant
+
+
+  // compilation séparée : vecteur de translation et descripteur
+  // -----------------------------------------------------------
+
+  private static int[] vTrans = new int[MAXOBJ + 1];
+
+>>>>>>> 3d587b01d85cab5f80f3ee2c2894d0e29a07ffb4
   private static void initvTrans() {
     for (int i = 1; i <= MAXOBJ; i++)
       vTrans[i] = -1;
@@ -367,6 +435,7 @@ public class PtGen {
             produire(CONTENUG);
             produire(tabSymb[i].info);
             break;
+<<<<<<< HEAD
         }
         break;
       case 26:
@@ -404,6 +473,45 @@ public class PtGen {
             break;
         }
         break;
+=======
+        }
+        break;
+      case 26:
+        produire(EMPILER);
+        produire(vCour);
+        break;
+
+      case 40:
+        i = presentIdent(1);
+        if (i == 0)
+          UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
+        symbCour = tabSymb[i];
+        break;
+      case 41:
+        switch (symbCour.type) {
+          case BOOL:
+            verifBool();
+            break;
+          case ENT:
+            verifEnt();
+            break;
+        }
+        break;
+      case 42:
+        produire(RESERVER);
+        produire(nbVarGlobales);
+        break;
+      case 43:
+        switch (tCour) {
+          case BOOL:
+            produire(ECRBOOL);
+            break;
+          case ENT:
+            produire(ECRENT);
+            break;
+        }
+        break;
+>>>>>>> 3d587b01d85cab5f80f3ee2c2894d0e29a07ffb4
       case 44:
         switch (tCour) {
           case BOOL:
@@ -415,6 +523,7 @@ public class PtGen {
         }
         break;
 
+<<<<<<< HEAD
       // Traitement du si ==> corrigé avec la prof
       case 50:		
         verifBool();
@@ -444,6 +553,37 @@ public class PtGen {
     	po[addr_bsifaux] = ipo+1;
     	break;
     	
+=======
+      // Traitement du si
+      case 50: // si et ttq
+        verifBool();
+        produire(BSIFAUX);
+        pileRep.empiler(ipo);
+        produire(0);
+        break;
+      case 51:
+        produire(BINCOND);
+        produire(0);
+        po[pileRep.depiler()] = ipo;
+        pileRep.empiler(ipo);
+        break;
+      case 52:
+        po[pileRep.depiler()] = ipo;
+        break;
+
+      // Traitement du ttq
+      case 53:
+        pileRep.empiler(ipo);
+        break;
+      case 54:
+        int addr_bsifaux = pileRep.depiler();
+        int addr_debut   = pileRep.depiler();
+        produire(BINCOND);
+        produire(addr_debut);
+        po[addr_bsifaux] = ipo;
+        break;
+
+>>>>>>> 3d587b01d85cab5f80f3ee2c2894d0e29a07ffb4
       // Traitement du cond
 
       // etc
