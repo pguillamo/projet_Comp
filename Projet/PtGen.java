@@ -416,7 +416,7 @@ public class PtGen {
         break;
 
       // Traitement du si
-      case 50:
+      case 50: // si et ttq
         verifBool();
         produire(BSIFAUX);
         pileRep.empiler(ipo);
@@ -433,6 +433,16 @@ public class PtGen {
         break;
 
       // Traitement du ttq
+      case 53:
+        pileRep.empiler(ipo);
+        break;
+      case 54:
+        int addr_bsifaux = pileRep.depiler();
+        int addr_debut   = pileRep.depiler();
+        produire(BINCOND);
+        produire(addr_debut);
+        po[addr_bsifaux] = ipo;
+        break;
 
       // Traitement du cond
 
