@@ -141,11 +141,8 @@ inssi:
         'alors'  instructions
         {PtGen.pt(51);}
         ('sinon' instructions)?
-<<<<<<< HEAD
-        'fsi'  {PtGen.pt(52);}
-=======
         'fsi' {PtGen.pt(52);}
->>>>>>> 3d587b01d85cab5f80f3ee2c2894d0e29a07ffb4
+
 ;
 
 inscond:
@@ -156,11 +153,9 @@ inscond:
 ;
 
 boucle:
-<<<<<<< HEAD
     'ttq' expression 'faire' instructions 'fait' 
-=======
     'ttq' {PtGen.pt(53);} expression {PtGen.pt(50));} 'faire' instructions 'fait' {PtGen.pt(54);}
->>>>>>> 3d587b01d85cab5f80f3ee2c2894d0e29a07ffb4
+
 ;
 
 lecture:

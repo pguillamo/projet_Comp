@@ -3,6 +3,8 @@ programme toto:
 	var ent i, n, x, s;
 	bool b;
 debut
-	b := faux;
+	b := vrai;
 	ecrire(3 - moinscinq);
+	x:=5;
+	si x = moinscinq alors b:=faux fsi;
 fin

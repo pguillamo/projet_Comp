@@ -1,8 +1,13 @@
 FICHIER toto.gen : 
 
    1  réserver        5
-   3  empiler         0
+   3  empiler         1
    5  empiler         3
    7  empiler        -5
    9  sous      
   10  ecrent    
+  11  empiler         5
+  13  contenug        2
+  15  empiler        -5
+  17  eg        
+  18  empiler         0
