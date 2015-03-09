@@ -1,9 +1,9 @@
 /*********************************************************************************
  *       VARIABLES ET METHODES FOURNIES PAR LA CLASSE UtilLex.java               *
- *       complément à l'ANALYSEUR LEXICAL produit par ANTLR                      *
+ *       complÃ©ment Ã  l'ANALYSEUR LEXICAL produit par ANTLR                      *
  *                                                                               *
  *                                                                               *
- *   nom du programme compilé, sans suffixe : String UtilLex.nomSource           *
+ *   nom du programme compilÃ©, sans suffixe : String UtilLex.nomSource           *
  *   ------------------------                                                    *
  *                                                                               *
  *   attributs lexicaux (selon items figurant dans la grammaire):                *
@@ -12,10 +12,10 @@
  *     int UtilLex.numId = code du dernier identificateur lu (item ident)        *
  *                                                                               *
  *                                                                               *
- *   méthodes utiles :                                                           *
+ *   mÃ©thodes utiles :                                                           *
  *   ---------------                                                             *
- *     void UtilLex.messErr(String m)  affichage de m et arrêt compilation       *
- *     String UtilLex.repId(int nId) délivre l'ident de codage nId               *
+ *     void UtilLex.messErr(String m)  affichage de m et arrÃªt compilation       *
+ *     String UtilLex.repId(int nId) dÃ©livre l'ident de codage nId               *
  *     
  *********************************************************************************     
  *     METHODES FOURNIES PAR LA CLASSE PtGen.java                                *
@@ -23,13 +23,13 @@
  *     void afftabSymb()  affiche la table des symboles                          *
  *********************************************************************************/
 
-// NB: Merci de renseigner la variable (String) trinome, définie plus loin
+// NB: Merci de renseigner la variable (String) trinome, dÃ©finie plus loin
 
 import java.io.*;
 
 public class PtGen {
 
-  // constantes manipulées par le compilateur
+  // constantes manipulÃ©es par le compilateur
   // ----------------------------------------
 
   private static final int
@@ -48,7 +48,7 @@ public class PtGen {
             // types permis :
             ENT = 1, BOOL = 2, NEUTRE = 3,
 
-            // catégories possibles :
+            // catÃ©gories possibles :
             CONSTANTE = 1, VARGLOBALE = 2, VARLOCALE = 3, PARAMFIXE = 4,
             PARAMMOD = 5, PROC = 6, DEF = 7, REF = 8, PRIVEE = 9;
 
@@ -100,7 +100,7 @@ public class PtGen {
 
   private static void placeIdent(int c, int cat, int t, int v) {
     if (it == MAXSYMB)
-      UtilLex.messErr("débordement de la table des symboles");
+      UtilLex.messErr("dÃ©bordement de la table des symboles");
     it = it + 1;
     tabSymb[it] = new EltTabSymb(c, cat, t, v);
   }
@@ -118,30 +118,30 @@ public class PtGen {
       } else
         Ecriture.ecrireInt(i, 6);
       if (tabSymb[i] == null)
-        System.out.println(" référence NULL");
+        System.out.println(" rÃ©fÃ©rence NULL");
       else
         System.out.println(" " + tabSymb[i]);
     }
     System.out.println();
   }
 
-  // contrôle de type
+  // contrÃ´le de type
   // ----------------
 
   private static void verifEnt() {
     if (tCour != ENT)
-      UtilLex.messErr("expression entière attendue");
+      UtilLex.messErr("expression entiÃ¨re attendue");
   }
 
   private static void verifBool() {
     if (tCour != BOOL)
-      UtilLex.messErr("expression booléenne attendue");
+      UtilLex.messErr("expression boolÃ©enne attendue");
   }
 
-  // pile pour gérer les chaînes de reprise et les branchements en avant
+  // pile pour gÃ©rer les chaÃ®nes de reprise et les branchements en avant
   // -------------------------------------------------------------------
 
-  private static class TpileRep { // chaines de reprise itérations,
+  private static class TpileRep { // chaines de reprise itÃ©rations,
     // conditionnelles
     private final int MAXPILEREP = 50;
     private int ip;
@@ -149,7 +149,7 @@ public class PtGen {
 
     public void empiler(int x) {
       if (ip == MAXPILEREP)
-        UtilLex.messErr("débordement de la pile de gestion des reprises");
+        UtilLex.messErr("dÃ©bordement de la pile de gestion des reprises");
       ip = ip + 1;
       T[ip] = x;
     }
@@ -167,10 +167,10 @@ public class PtGen {
   } // TpileRep
 
   private static TpileRep pileRep = new TpileRep();; // chaines de reprise
-  // itérations,
+  // itÃ©rations,
   // conditionnelles
 
-  // production du code objet en mémoire, dans le tableau po
+  // production du code objet en mÃ©moire, dans le tableau po
   // -------------------------------------------------------
 
   private static int[] po = new int[MAXOBJ + 1];
@@ -178,18 +178,18 @@ public class PtGen {
 
   private static void produire(int codeouarg) {
     if (ipo == MAXOBJ)
-      UtilLex.messErr("débordement : programme objet trop long");
+      UtilLex.messErr("dÃ©bordement : programme objet trop long");
     ipo = ipo + 1;
     po[ipo] = codeouarg;
   }
 
-  // construction du fichier objet sous forme mnémonique
+  // construction du fichier objet sous forme mnÃ©monique
   // ---------------------------------------------------
   private static void constGen() {
     Mnemo.creerFichier(ipo, po, UtilLex.nomSource + ".gen"); // recopie de
     // po sous
     // forme
-    // mnémonique
+    // mnÃ©monique
   }
 
   // construction du fichier objet pour MAPILE
@@ -197,7 +197,7 @@ public class PtGen {
   private static void constObj() {
     OutputStream f = Ecriture.ouvrir(UtilLex.nomSource + ".obj");
     if (f == null) {
-      System.out.println("impossible de créer " + UtilLex.nomSource
+      System.out.println("impossible de crÃ©er " + UtilLex.nomSource
           + ".obj");
       System.exit(1);
     }
@@ -209,15 +209,15 @@ public class PtGen {
     Ecriture.fermer(f);
   }
 
-  // autres variables et procédures fournies
+  // autres variables et procÃ©dures fournies
   // ---------------------------------------
   public static String trinome = "Matthieu Leportier, Antoine Pinsard, Pierre-Yves Guillamo";
 
-  private static int tCour; // type de l'expression compilée
-  private static int vCour; // valeur de l'expression compilée le cas echeant
+  private static int tCour; // type de l'expression compilÃ©e
+  private static int vCour; // valeur de l'expression compilÃ©e le cas echeant
 
 
-  // compilation séparée : vecteur de translation et descripteur
+  // compilation sÃ©parÃ©e : vecteur de translation et descripteur
   // -----------------------------------------------------------
 
   private static int[] vTrans = new int[MAXOBJ + 1];
@@ -237,14 +237,14 @@ public class PtGen {
     }
   } // descripteur
 
-  // initialisations à compléter
+  // initialisations Ã  complÃ©ter
   // -----------------------------
 
-  private static void initialisations() { // à compléter si nécessaire mais NE
+  private static void initialisations() { // Ã  complÃ©ter si nÃ©cessaire mais NE
     // RIEN SUPPRIMER
     initvTrans();
     desc = new Descripteur(); // initialisation du descripteur pour
-    // compilation séparée
+    // compilation sÃ©parÃ©e
     it = 0;
     bc = 1;
     ipo = 0;
@@ -252,14 +252,18 @@ public class PtGen {
     nbVarGlobales = 0;
   } // initialisations
 
-  // autres variables et procédures introduites par le trinome
+  // autres variables et procÃ©dures introduites par le trinome
 
-  private static int idCour; // Stocke le dernier identifiant rencontré
-  private static int catCour; // categorie de l'expression compilée
+  private static int idCour; // Stocke le dernier identifiant rencontrÃ©
+  private static int catCour; // categorie de l'expression compilÃ©e
   private static int nbVarGlobales;
   private static EltTabSymb symbCour;
 
-  // code des points de génération à compléter
+  private static int addr_bsifaux;
+  private static int addr_bincond;
+  private static int addr_debut;
+
+  // code des points de gÃ©nÃ©ration Ã  complÃ©ter
   // -----------------------------------------
   public static void pt(int numGen) {
     int cat, i;
@@ -271,10 +275,10 @@ public class PtGen {
         initialisations();
         break;
 
-      // Traitement des déclarations
+      // Traitement des dÃ©clarations
       case 1:
         if (presentIdent(1) != 0) {
-          UtilLex.messErr("Identifiant déjà défini : \""+ UtilLex.repId(UtilLex.numId) +"\"");
+          UtilLex.messErr("Identifiant dÃ©jÃ  dÃ©fini : \""+ UtilLex.repId(UtilLex.numId) +"\"");
         }
         break;
       case 2:
@@ -356,7 +360,7 @@ public class PtGen {
       case 25:
         i = presentIdent(1);
         if (i == 0)
-          UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
+          UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non dÃ©clarÃ©");
         tCour = tabSymb[i].type;
         switch (tabSymb[i].categorie) {
           case CONSTANTE:
@@ -377,7 +381,7 @@ public class PtGen {
       case 40:
         i = presentIdent(1);
         if (i == 0)
-          UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
+          UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non dÃ©clarÃ©");
         symbCour = tabSymb[i];
         break;
       case 41:
@@ -439,8 +443,8 @@ public class PtGen {
         pileRep.empiler(ipo+1);
         break;
       case 54:
-        int addr_bsifaux = pileRep.depiler();
-        int addr_debut = pileRep.depiler();
+        addr_bsifaux = pileRep.depiler();
+        addr_debut = pileRep.depiler();
         produire(BINCOND);
         produire(addr_debut);
         po[addr_bsifaux] = ipo+1;
@@ -451,16 +455,16 @@ public class PtGen {
         pileRep.empiler(0);
         break;
       case 56:
-        int addr_bsifaux = pileRep.depiler();
-        int addr_bincond = pileRep.depiler();
+        addr_bsifaux = pileRep.depiler();
+        addr_bincond = pileRep.depiler();
         produire(BINCOND);
         produire(addr_bincond);
-        empiler(ipo);
+        pileRep.empiler(ipo);
         break;
       case 57:
-        int addr_bincond = pileRep.depiler();
+        addr_bincond = pileRep.depiler();
         while (addr_bincond != 0) {
-          empiler(po[addr_bincond]);
+          pileRep.empiler(po[addr_bincond]);
           po[addr_bincond] = ipo+1;
           addr_bincond = pileRep.depiler();
         }
@@ -469,7 +473,7 @@ public class PtGen {
       // etc
 
       default:
-        System.out.println("Point de génération non prévu dans votre liste");
+        System.out.println("Point de gÃ©nÃ©ration non prÃ©vu dans votre liste");
         break;
 
     }

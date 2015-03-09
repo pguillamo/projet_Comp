@@ -1,10 +1,10 @@
 /******************************************************************************************************
  *    projet.java    pour AntLR version 3                                                             *
- *    programme fourni aux étudiants QUI NE DOIVENT PAS LE MODIFIER                                   *
+ *    programme fourni aux Ã©tudiants QUI NE DOIVENT PAS LE MODIFIER                                   *
  *    ce programme contient le main qui demande le nom du programme source que l'on souhaite compiler,*
- *    et lance sa compilation à partir de l'axiome "unite" de la grammaire projet.g                   *     
- *    on peut compiler plusieurs programmes source de suite (arrêt par un retour-chariot)             *
- *    ANTLR suspend complètement le traitement les programmes sources de syntaxe erronée si l'on met  *  
+ *    et lance sa compilation Ã  partir de l'axiome "unite" de la grammaire projet.g                   *     
+ *    on peut compiler plusieurs programmes source de suite (arrÃªt par un retour-chariot)             *
+ *    ANTLR suspend complÃ¨tement le traitement les programmes sources de syntaxe erronÃ©e si l'on met  *  
  *    la clause @rulecatch dans la grammaire                                                          *
  *    NB : ce module utilise des classes externes comme Lecture, UtilLex, ANTLRxxx                    *
  *****************************************************************************************************/
@@ -18,24 +18,24 @@ import org.antlr.runtime.RecognitionException;
 
 
 class projet {
-  public static String nomSourceComplet; // nom du source à compiler, avec son suffixe .pro 
+  public static String nomSourceComplet; // nom du source Ã  compiler, avec son suffixe .pro 
 
   private static void UneCompilation (String nomDuSource ) {
     try {
       ANTLRFileStream input = new ANTLRFileStream(nomDuSource);
       projetLexer lexer = new projetLexer(input);
-      CommonTokenStream token_stream = new CommonTokenStream(lexer); // production d'un flot d'unités lexicales
+      CommonTokenStream token_stream = new CommonTokenStream(lexer); // production d'un flot d'unitÃ©s lexicales
       projetParser parser = new projetParser(token_stream);   
-      PtGen.pt(0); // point de génération des initialisations
-      // Compile le texte source en entrée, l'axiome "unite" est precisé
+      PtGen.pt(0); // point de gÃ©nÃ©ration des initialisations
+      // Compile le texte source en entrÃ©e, l'axiome "unite" est precisÃ©
       parser.unite();
 
     } catch (FileNotFoundException fnf) {
-      System.out.println("exception: " + fnf); // cas où le fichier source précisé n'existe pas
+      System.out.println("exception: " + fnf); // cas oÃ¹ le fichier source prÃ©cisÃ© n'existe pas
     }
     catch (RecognitionException re) {
-      System.err.println("Recognition exception: " + re); // erreur de nature syntaxique détectée par le lexer ou le parser
-      // System.err.println dirige ses impressions sur une autre sortie et les messages ont ici tendance à se mélanger
+      System.err.println("Recognition exception: " + re); // erreur de nature syntaxique dÃ©tectÃ©e par le lexer ou le parser
+      // System.err.println dirige ses impressions sur une autre sortie et les messages ont ici tendance Ã  se mÃ©langer
     }
     catch (IOException exc) {
       System.err.println("IO exception: " + exc);
@@ -52,10 +52,10 @@ class projet {
 
     do 
     {
-      // lecture du nom de fichier en entrée, sans son suffixe
+      // lecture du nom de fichier en entrÃ©e, sans son suffixe
       System.out.println(); 
-      System.out.print("Donnez le nom du fichier que vous souhaitez compiler, sans suffixe :  (RC si terminé) ");
-      UtilLex.nomSource=Lecture.lireString();  // on fournit à UtilLex le nom sans suffixe
+      System.out.print("Donnez le nom du fichier que vous souhaitez compiler, sans suffixe :  (RC si terminÃ©) ");
+      UtilLex.nomSource=Lecture.lireString();  // on fournit Ã  UtilLex le nom sans suffixe
       System.out.println();
 
       if (!UtilLex.nomSource.equals("")) {
@@ -66,6 +66,6 @@ class projet {
       System.out.println();
     }
     while (!UtilLex.nomSource.equals("")); 	
-    System.out.println("\n \n Merci pour votre patience, " + PtGen.trinome + ", et à bientôt !!!");	
+    System.out.println("\n \n Merci pour votre patience, " + PtGen.trinome + ", et Ã  bientÃ´t !!!");	
   } // main
 } // projet

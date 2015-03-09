@@ -153,8 +153,7 @@ inscond:
 ;
 
 boucle:
-    'ttq' expression 'faire' instructions 'fait' 
-    'ttq' {PtGen.pt(53);} expression {PtGen.pt(50));} 'faire' instructions 'fait' {PtGen.pt(54);}
+    'ttq' {PtGen.pt(53);} expression {PtGen.pt(50);} 'faire' instructions 'fait' {PtGen.pt(54);}
 
 ;
 

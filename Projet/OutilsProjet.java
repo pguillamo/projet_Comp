@@ -2,18 +2,18 @@ import java.io.*;
 
 class Mnemo { 
 
-  // La procédure Mnemo.creerFichier(int ipo,int[] po,String nomComplet) 
+  // La procÃ©dure Mnemo.creerFichier(int ipo,int[] po,String nomComplet) 
   // permet d'obtenir, dans le fichier de nom nomComplet (ie AVEC suffixe 
-  // .gen ou .ima), le mnémonique du code contenu dans le tableau po[1..ipo] 
+  // .gen ou .ima), le mnÃ©monique du code contenu dans le tableau po[1..ipo] 
   // Les tableaux inst et nbp sont "public" car ils servent dans Mapile
 
   public static final String [] inst =
   {"",
-    "réserver  ","empiler   ","contenug  ","affecterg ","ou        ",
+    "rÃ©server  ","empiler   ","contenug  ","affecterg ","ou        ",
     "et        ","non       ","inf       ","infeg     ","sup       ",
     "supeg     ","eg        ","diff      ","add       ","sous      ",
     "mul       ","div       ","bsifaux   ","bincond   ","lirent    ",
-    "lirebool  ","ecrent    ","ecrbool   ","arrêt     ","empileradg",
+    "lirebool  ","ecrent    ","ecrbool   ","arrÃªt     ","empileradg",
     "empileradl","contenul  ","affecterl ","appel     ","retour    "};
 
   public static final int [] nbp =
@@ -34,7 +34,7 @@ class Mnemo {
       if (code<1 || code>=inst.length) {
         Ecriture.ecrireStringln(f," code instruction incorrect : "+code);
         Ecriture.fermer(f);
-        System.out.println("code mal généré, consultez le fichier "
+        System.out.println("code mal gÃ©nÃ©rÃ©, consultez le fichier "
             +nomComplet);
         System.exit(1);
       }
@@ -53,13 +53,13 @@ class Mnemo {
 
 
 
-// Les classes suivantes permettent de déclarer un descripteur : 
-// EltDef : type de chaque élément de la table des points d'entrée tabDef
-// EltRef : type de chaque élément de la table des références externes tabRef
-// Descripteur : type d'un descripteur, les procédures ecrireDesc/lireDesc
+// Les classes suivantes permettent de dÃ©clarer un descripteur : 
+// EltDef : type de chaque Ã©lÃ©ment de la table des points d'entrÃ©e tabDef
+// EltRef : type de chaque Ã©lÃ©ment de la table des rÃ©fÃ©rences externes tabRef
+// Descripteur : type d'un descripteur, les procÃ©dures ecrireDesc/lireDesc
 //               permettent la sauvegarde/initialisation d'une variable
-//               Descripteur vers/à partir d'un fichier dont le nom est fourni 
-//               SANS suffixe (celui-ci est ajouté par les deux procédures et 
+//               Descripteur vers/Ã  partir d'un fichier dont le nom est fourni 
+//               SANS suffixe (celui-ci est ajoutÃ© par les deux procÃ©dures et 
 //               est ".desc")
 
 
@@ -100,7 +100,7 @@ class Descripteur {
 
   public String toString() {
     String s=
-      "unité          "+unite+"\n"+
+      "unitÃ©          "+unite+"\n"+
       "tailleCode     "+tailleCode+"\n"+
       "tailleGlobaux  "+tailleGlobaux+"\n"+
       "nbDef          "+nbDef+"\n"+
@@ -120,7 +120,7 @@ class Descripteur {
   public void ecrireDesc(String nomFichier) {
     OutputStream f=Ecriture.ouvrir(nomFichier+".desc");
     if (f==null) {
-      System.out.println("création de "+nomFichier+".desc impossible");
+      System.out.println("crÃ©ation de "+nomFichier+".desc impossible");
       System.exit(1);
     }
     Ecriture.ecrireStringln(f,"FICHIER "+nomFichier+".desc :");
@@ -129,7 +129,7 @@ class Descripteur {
     Ecriture.fermer(f);
   }
 
-  // Utilitaire permettant d'initialiser un descripteur à partir d'un fichier .desc
+  // Utilitaire permettant d'initialiser un descripteur Ã  partir d'un fichier .desc
   public void lireDesc(String nomFichier) {
     InputStream f=Lecture.ouvrir(nomFichier+".desc");
     String nomProc;
