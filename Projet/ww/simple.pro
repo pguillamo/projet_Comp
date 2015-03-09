@@ -11,4 +11,3 @@ debut
   fait;
   ecrire(s, b);
 fin
-
