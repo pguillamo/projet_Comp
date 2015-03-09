@@ -2,3 +2,5 @@ Projet/ww/*.gen
 Projet/ww/*.obj
 Projet/error.log
 Projet/*.tokens
+*.sw[po]
+*.py[co]
