@@ -24,7 +24,7 @@ test: testgen
 
 testgen: simple.test exempcond.gen
 
-%.test: $(WW)/%.testgen $(WW)/%.utf8.gen
+%.test: $(WW)/%.gentest $(WW)/%.utf8.gen
 	diff $^ && echo "OK" || echo "FAIL"
 
 .PHONY: projet gen test testgen %.test clean
