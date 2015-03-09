@@ -1,24 +1,35 @@
 CLASSPATH=libclass/:../antlr/antlr-3.5.jar
 CLASS=libclass/
+WW=ww
+CC=javac -cp $(CLASSPATH) -d $(CLASS)
+JAVA=java -cp $(CLASSPATH)
 
-all: projet obj
+all: projet gen
 
 projet: projet.tokens
-	javac -cp $(CLASSPATH) -d $(CLASS) *.java
+	$(CC) *.java
 
 %.tokens: %.g
-	java -cp $(CLASSPATH) org.antlr.Tool $<
+	$(JAVA) org.antlr.Tool $<
 
-obj: ww/simple.obj ww/exempcond.obj
+gen: $(WW)/simple.gen $(WW)/exempcond.gen
 
-ww/%.obj: ww/%.pro
-	$(shell pushd ww)
-	echo -e "$(basename $<)\n" | java projet
-	$(shell popd)
+$(WW)/%.gen: $(WW)/%.pro
+	echo -ne "$(basename $<)\n\n" | $(JAVA) projet
 
-.PHONY:
+$(WW)/%.utf8.gen: $(WW)/%.gen
+	iconv -o $@ -f ISO-8859-1 -t UTF-8 $<
+
+test: testgen
+
+testgen: simple.test exempcond.gen
+
+%.test: $(WW)/%.testgen $(WW)/%.utf8.gen
+	diff $^ && echo "OK" || echo "FAIL"
+
+.PHONY: projet gen test testgen %.test clean
 
 clean:
-	rm ww/*.gen
-	rm ww/*.obj
-	rm *.tokens
+	rm -f $(WW)/*.gen
+	rm -f $(WW)/*.obj
+	rm -f *.tokens
