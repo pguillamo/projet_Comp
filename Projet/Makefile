@@ -9,7 +9,7 @@ projet: projet.tokens
 %.tokens: %.g
 	java -cp $(CLASSPATH) org.antlr.Tool $<
 
-obj: ww/simple.obj 
+obj: ww/simple.obj ww/exempcond.obj
 
 ww/%.obj: ww/%.pro
 	$(shell pushd ww)

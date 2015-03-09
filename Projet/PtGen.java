@@ -460,6 +460,7 @@ public class PtGen {
         produire(BINCOND);
         produire(addr_bincond);
         pileRep.empiler(ipo);
+        po[addr_bsifaux] = ipo+1;
         break;
       case 57:
         addr_bincond = pileRep.depiler();
