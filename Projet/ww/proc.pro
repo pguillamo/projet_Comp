@@ -1,8 +1,8 @@
 programme exo6:
   var ent res; bool op;             # réserver 2
   proc verifdrapeau
-    fixe (ent v)
-    mod (ent r; bool b)
+      fixe (ent v)
+      mod (ent r; bool b)
     var bool drap;
   debut
     drap:=faux;
@@ -19,7 +19,7 @@ programme exo6:
     b:=drap;
   fin;
   proc recurs
-    mod (ent r)
+      mod (ent r)
     var ent x; bool marq;
   debut
     lire(x);
@@ -34,5 +34,6 @@ programme exo6:
     fsi
   fin;
 debut
-  recurs()(res); ecrire(res);
+  recurs()(res);
+  ecrire(res);
 fin
