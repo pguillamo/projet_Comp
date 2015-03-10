@@ -12,7 +12,7 @@ projet: projet.tokens
 %.tokens: %.g
 	$(JAVA) org.antlr.Tool $<
 
-build: $(WW)/simple.gen $(WW)/exempcond.gen
+build: $(WW)/simple.gen $(WW)/exempcond.gen $(WW)/sittq.gen
 
 $(WW)/%.gen: $(WW)/%.pro
 	echo -ne "$(basename $<)\n\n" | $(JAVA) projet
@@ -20,7 +20,7 @@ $(WW)/%.gen: $(WW)/%.pro
 $(WW)/%.utf8.gen: $(WW)/%.gen
 	iconv -f ISO-8859-1 -t UTF-8 $< | tr -d '\r' > $@
 
-test: simple.test exempcond.test
+test: simple.test exempcond.test sittq.test
 
 %.test: $(WW)/%.test.gen $(WW)/%.utf8.gen
 	diff $^ > /dev/null && echo "[ OK ]" || echo "!! FAIL !!"
