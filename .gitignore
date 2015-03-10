@@ -6,3 +6,5 @@ Projet/*.tokens
 *.py[co]
 .classpath
 .project
+Projet/projetLexer.java
+Projet/projetParser.java
