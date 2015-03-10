@@ -2,6 +2,7 @@ import os
 import re
 import sys
 
+
 def gentest(f):
     labels = {}
 
@@ -49,6 +50,6 @@ if __name__ == '__main__':
             filename = arg[:-4] + '.gen'
             contents = "FICHIER %s : \n\n" % filename
             contents += gentest_contents
-            filename += 'test'
+            filename = arg[:-4] + '.test.gen'
             with open(filename, 'w') as f:
                 f.write(contents)

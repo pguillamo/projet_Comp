@@ -20,14 +20,18 @@ $(WW)/%.gen: $(WW)/%.pro
 $(WW)/%.utf8.gen: $(WW)/%.gen
 	iconv -o $@ -f ISO-8859-1 -t UTF-8 $<
 
-test: testgen
+test: simple.test exempcond.test
 
-testgen: simple.test exempcond.gen
-
-%.test: $(WW)/%.gentest $(WW)/%.utf8.gen
+%.test: $(WW)/%.test.gen $(WW)/%.utf8.gen
 	diff $^ && echo "OK" || echo "FAIL"
 
-.PHONY: projet gen test testgen %.test clean
+%.diff: $(WW)/%.test.gen $(WW)/%.utf8.gen
+	vimdiff $^
+
+$(WW)/%.test.gen: $(WW)/%.pro
+	python3 test_builder.py $<
+
+.PHONY: projet gen test %.test %.diff clean
 
 clean:
 	rm -f $(WW)/*.gen
