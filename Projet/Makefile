@@ -4,7 +4,7 @@ WW=ww
 CC=javac -cp $(CLASSPATH) -d $(CLASS)
 JAVA=java -cp $(CLASSPATH)
 
-all: projet gen
+all: projet build
 
 projet: projet.tokens
 	$(CC) *.java
@@ -12,7 +12,7 @@ projet: projet.tokens
 %.tokens: %.g
 	$(JAVA) org.antlr.Tool $<
 
-gen: $(WW)/simple.gen $(WW)/exempcond.gen
+build: $(WW)/simple.gen $(WW)/exempcond.gen
 
 $(WW)/%.gen: $(WW)/%.pro
 	echo -ne "$(basename $<)\n\n" | $(JAVA) projet
@@ -23,7 +23,7 @@ $(WW)/%.utf8.gen: $(WW)/%.gen
 test: simple.test exempcond.test
 
 %.test: $(WW)/%.test.gen $(WW)/%.utf8.gen
-	diff $^ && echo "OK" || echo "FAIL"
+	diff $^ > /dev/null && echo "OK" || echo "FAIL"
 
 %.diff: $(WW)/%.test.gen $(WW)/%.utf8.gen
 	vimdiff $^
