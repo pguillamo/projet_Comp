@@ -4,3 +4,5 @@ Projet/error.log
 Projet/*.tokens
 *.sw[po]
 *.py[co]
+.classpath
+.project
