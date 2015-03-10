@@ -271,6 +271,9 @@ public class PtGen {
       case 255:
         afftabSymb(); constGen(); constObj();
         break;
+      case 254:
+        produire(ARRET);
+        break;
       case 0:
         initialisations();
         break;
@@ -393,6 +396,8 @@ public class PtGen {
             verifEnt();
             break;
         }
+        produire(AFFECTERG);
+        produire(symbCour.info);
         break;
       case 42:
         produire(RESERVER);
@@ -409,7 +414,10 @@ public class PtGen {
         }
         break;
       case 44:
-        switch (tCour) {
+        i = presentIdent(1);
+        if (i == 0)
+          UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
+        switch (tabSymb[i].type) {
           case BOOL:
             produire(LIREBOOL);
             break;
@@ -417,6 +425,8 @@ public class PtGen {
             produire(LIRENT);
             break;
         }
+        produire(AFFECTERG);
+        produire(tabSymb[i].info);
         break;
 
       // Traitement si/ttq/cond

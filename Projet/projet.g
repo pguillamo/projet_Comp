@@ -103,7 +103,7 @@ ptvg:
 ;
 
 corps:
-    'debut' instructions 'fin'
+    'debut' instructions 'fin' {PtGen.pt(254);}
 ;
 
 parfixe:
@@ -139,8 +139,7 @@ instruction:
 inssi:
     'si' expression {PtGen.pt(50);} 
         'alors'  instructions
-        {PtGen.pt(51);}
-        ('sinon' instructions)?
+        ( {PtGen.pt(51);} 'sinon' instructions)?
         'fsi' {PtGen.pt(52);}
 
 ;

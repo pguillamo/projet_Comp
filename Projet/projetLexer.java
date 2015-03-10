@@ -1,4 +1,4 @@
-// $ANTLR 3.5 projet.g 2015-03-10 09:17:12
+// $ANTLR 3.5 projet.g 2015-03-10 19:22:20
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -1035,8 +1035,8 @@ public class projetLexer extends Lexer {
 		try {
 			int _type = ID;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// projet.g:260:3: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-			// projet.g:260:5: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// projet.g:259:3: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+			// projet.g:259:5: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -1046,7 +1046,7 @@ public class projetLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// projet.g:260:24: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// projet.g:259:24: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -1091,10 +1091,10 @@ public class projetLexer extends Lexer {
 		try {
 			int _type = INT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// projet.g:264:4: ( ( '0' .. '9' )+ )
-			// projet.g:264:6: ( '0' .. '9' )+
+			// projet.g:263:4: ( ( '0' .. '9' )+ )
+			// projet.g:263:6: ( '0' .. '9' )+
 			{
-			// projet.g:264:6: ( '0' .. '9' )+
+			// projet.g:263:6: ( '0' .. '9' )+
 			int cnt2=0;
 			loop2:
 			while (true) {
@@ -1143,10 +1143,10 @@ public class projetLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// projet.g:265:3: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
-			// projet.g:265:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
+			// projet.g:264:3: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
+			// projet.g:264:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
 			{
-			// projet.g:265:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
+			// projet.g:264:5: ( ' ' | '\\t' | '\\n' | '\\r' )+
 			int cnt3=0;
 			loop3:
 			while (true) {
@@ -1196,7 +1196,7 @@ public class projetLexer extends Lexer {
 		try {
 			int _type = COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// projet.g:268:8: ( '\\{' ( . )* '\\}' | '#' (~ ( '\\r' | '\\n' ) )* )
+			// projet.g:267:8: ( '\\{' ( . )* '\\}' | '#' (~ ( '\\r' | '\\n' ) )* )
 			int alt6=2;
 			int LA6_0 = input.LA(1);
 			if ( (LA6_0=='{') ) {
@@ -1214,10 +1214,10 @@ public class projetLexer extends Lexer {
 
 			switch (alt6) {
 				case 1 :
-					// projet.g:269:5: '\\{' ( . )* '\\}'
+					// projet.g:268:5: '\\{' ( . )* '\\}'
 					{
 					match('{'); 
-					// projet.g:269:10: ( . )*
+					// projet.g:268:10: ( . )*
 					loop4:
 					while (true) {
 						int alt4=2;
@@ -1231,7 +1231,7 @@ public class projetLexer extends Lexer {
 
 						switch (alt4) {
 						case 1 :
-							// projet.g:269:11: .
+							// projet.g:268:11: .
 							{
 							matchAny(); 
 							}
@@ -1247,10 +1247,10 @@ public class projetLexer extends Lexer {
 					}
 					break;
 				case 2 :
-					// projet.g:270:6: '#' (~ ( '\\r' | '\\n' ) )*
+					// projet.g:269:6: '#' (~ ( '\\r' | '\\n' ) )*
 					{
 					match('#'); 
-					// projet.g:270:10: (~ ( '\\r' | '\\n' ) )*
+					// projet.g:269:10: (~ ( '\\r' | '\\n' ) )*
 					loop5:
 					while (true) {
 						int alt5=2;
@@ -1298,12 +1298,12 @@ public class projetLexer extends Lexer {
 		try {
 			int _type = ML_COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// projet.g:274:11: ( '/*' ( options {greedy=false; } : . )* '*/' )
-			// projet.g:275:5: '/*' ( options {greedy=false; } : . )* '*/'
+			// projet.g:273:11: ( '/*' ( options {greedy=false; } : . )* '*/' )
+			// projet.g:274:5: '/*' ( options {greedy=false; } : . )* '*/'
 			{
 			match("/*"); 
 
-			// projet.g:275:10: ( options {greedy=false; } : . )*
+			// projet.g:274:10: ( options {greedy=false; } : . )*
 			loop7:
 			while (true) {
 				int alt7=2;
@@ -1324,7 +1324,7 @@ public class projetLexer extends Lexer {
 
 				switch (alt7) {
 				case 1 :
-					// projet.g:275:37: .
+					// projet.g:274:37: .
 					{
 					matchAny(); 
 					}

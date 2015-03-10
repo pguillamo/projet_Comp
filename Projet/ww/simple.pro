@@ -30,7 +30,7 @@ debut
     fsi;                              # fsi_2:
     i := i-1;                         #   contenug 0
                                       #   empiler 1
-                                      #   sub
+                                      #   sous
                                       #   affecterg 0
   fait;                               #   bincond @ttq_1
                                       # fait_1:

@@ -18,7 +18,7 @@ $(WW)/%.gen: $(WW)/%.pro
 	echo -ne "$(basename $<)\n\n" | $(JAVA) projet
 
 $(WW)/%.utf8.gen: $(WW)/%.gen
-	iconv -o $@ -f ISO-8859-1 -t UTF-8 $<
+	iconv -f ISO-8859-1 -t UTF-8 $< | tr -d '\r' > $@
 
 test: simple.test exempcond.test
 
@@ -31,9 +31,10 @@ test: simple.test exempcond.test
 $(WW)/%.test.gen: $(WW)/%.pro
 	python3 test_builder.py $<
 
-.PHONY: projet gen test %.test %.diff clean
+.PHONY: projet build gen test %.test %.diff clean
 
 clean:
 	rm -f $(WW)/*.gen
 	rm -f $(WW)/*.obj
 	rm -f *.tokens
+
