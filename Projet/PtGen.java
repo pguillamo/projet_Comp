@@ -164,6 +164,15 @@ public class PtGen {
     public TpileRep() {
       ip = 0;
     }
+
+    public String toString() {
+      String res = "{";
+      for (int i=1; i<ip; i++) {
+        res += i+", ";
+      }
+      res += "}";
+      return res;
+    }
   } // TpileRep
 
   private static TpileRep pileRep = new TpileRep();; // chaines de reprise
@@ -262,6 +271,7 @@ public class PtGen {
   private static int addr_bsifaux;
   private static int addr_bincond;
   private static int addr_debut;
+  private static int tmpAddr;
 
   // code des points de génération à compléter
   // -----------------------------------------
@@ -270,6 +280,7 @@ public class PtGen {
     switch (numGen) {
       case 255:
         afftabSymb(); constGen(); constObj();
+        System.out.println("Pile de reprise : "+ pileRep);
         break;
       case 254:
         produire(ARRET);
@@ -473,11 +484,19 @@ public class PtGen {
         po[addr_bsifaux] = ipo+1;
         break;
       case 57:
+        addr_bsifaux = pileRep.depiler();
+        produire(BINCOND);
+        produire(0);
+        pileRep.empiler(ipo);
+        po[addr_bsifaux] = ipo+1;
+        break;
+      case 58:
+        po[pileRep.depiler()] = ipo+1;
         addr_bincond = pileRep.depiler();
         while (addr_bincond != 0) {
-          pileRep.empiler(po[addr_bincond]);
+          tmpAddr = po[addr_bincond];
           po[addr_bincond] = ipo+1;
-          addr_bincond = pileRep.depiler();
+          addr_bincond = tmpAddr;
         }
         break;
 

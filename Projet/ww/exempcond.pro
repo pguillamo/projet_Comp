@@ -16,25 +16,25 @@ debut
   cond
   b1:                                 #   contenug 0
                                       #   bsifaux @cond_1_b2
-    ecrire(1),                        #   empiler 1
+    ecrire(1)                         #   empiler 1
                                       #   ecrent
                                       #   bincond @fcond_1
-   b2:                                # cond_1_b2:
+  ,b2:                                 # cond_1_b2:
                                       #   contenug 1
                                       #   bsifaux @cond_1_b6
     cond
-    b3:                               #   congenug 2
+    b3:                               #   contenug 2
                                       #   bsifaux @cond_2_b4
-      ecrire(2),                      #   empiler 2
+      ecrire(2)                       #   empiler 2
                                       #   ecrent
                                       #   bincond @fcond_2
-    b4:                               # cond_2_b4:
+    ,b4:                              # cond_2_b4:
                                       #   contenug 3
                                       #   bsifaux @cond_2_b5
-      ecrire(3),                      #   empiler 3
+      ecrire(3)                       #   empiler 3
                                       #   ecrent
                                       #   bincond @fcond_2
-    b5:                               # cond_2_b5:
+    ,b5:                              # cond_2_b5:
                                       #   contenug 4
                                       #   bsifaux @cond_2_aut
       ecrire(4)                       #   empiler 4
@@ -43,8 +43,9 @@ debut
                                       # cond_2_aut:
       ecrire(5)                       #   empiler 5
                                       #   ecrent
-    fcond,                            # fcond_2:
-  b6:                                 # cond_1_b6:
+    fcond                             # fcond_2:
+                                      #   bincond @fcond_1
+  ,b6:                                # cond_1_b6:
                                       #   contenug 5
                                       #   bsifaux @fcond_1
     ecrire(6)                         #   empiler 6

@@ -145,10 +145,10 @@ inssi:
 ;
 
 inscond:
-    'cond' {PtGen.pt(55);} expression {PtGen.pt(50);} ':' instructions {PtGen.pt(56);} 
-        (','               expression {PtGen.pt(50);} ':' instructions {PtGen.pt(56);} )* 
-        ('aut' instructions )?
-        'fcond' {PtGen.pt(57);} 
+    'cond' {PtGen.pt(55);}   expression {PtGen.pt(50);} ':' instructions 
+        ({PtGen.pt(56);} ',' expression {PtGen.pt(50);} ':' instructions)* 
+        ({PtGen.pt(57);} 'aut' instructions )?
+        'fcond' {PtGen.pt(58);} 
 ;
 
 boucle:

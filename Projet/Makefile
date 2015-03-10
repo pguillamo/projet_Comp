@@ -23,7 +23,7 @@ $(WW)/%.utf8.gen: $(WW)/%.gen
 test: simple.test exempcond.test
 
 %.test: $(WW)/%.test.gen $(WW)/%.utf8.gen
-	diff $^ > /dev/null && echo "OK" || echo "FAIL"
+	diff $^ > /dev/null && echo "[ OK ]" || echo "!! FAIL !!"
 
 %.diff: $(WW)/%.test.gen $(WW)/%.utf8.gen
 	vimdiff $^
