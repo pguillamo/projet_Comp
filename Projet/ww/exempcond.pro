@@ -19,7 +19,7 @@ debut
     ecrire(1)                         #   empiler 1
                                       #   ecrent
                                       #   bincond @fcond_1
-  ,b2:                                 # cond_1_b2:
+  ,b2:                                # cond_1_b2:
                                       #   contenug 1
                                       #   bsifaux @cond_1_b6
     cond
