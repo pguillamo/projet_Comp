@@ -1,41 +1,47 @@
+# moinscinq = -5
+# i = 0
+# n = 1
+# x = 2
+# s = 3
+# b = 4
 programme simple:
   const moinscinq = -5;
   var ent i, n, x, s; bool b;         #   réserver 5
 debut
   lire(n);                            #   lirent
-                                      #   affecterg 1
-  i := n;                             #   contenug 1
-                                      #   affecterg 0
+                                      #   affecterg %(n)s
+  i := n;                             #   contenug %(n)s
+                                      #   affecterg %(i)s
   s := 0;                             #   empiler 0
-                                      #   affecterg 3
+                                      #   affecterg %(s)s
   b := faux;                          #   empiler 0
-                                      #   affecterg 4
+                                      #   affecterg %(b)s
   ttq i > 0 faire                     # ttq_1:
-                                      #   contenug 0
+                                      #   contenug %(i)s
                                       #   empiler 0
                                       #   sup
                                       #   bsifaux @fait_1
     lire(x);                          #   lirent
-                                      #   affecterg 2
-    s := s+x;                         #   contenug 3
-                                      #   contenug 2
+                                      #   affecterg %(x)s
+    s := s+x;                         #   contenug %(s)s
+                                      #   contenug %(x)s
                                       #   add
-                                      #   affecterg 3
-    si x = moinscinq alors            #   contenug 2
-                                      #   empiler -5
+                                      #   affecterg %(s)s
+    si x = moinscinq alors            #   contenug %(x)s
+                                      #   empiler %(moinscinq)s
                                       #   eg
                                       #   bsifaux @fsi_2
       b := vrai                       #   empiler 1
-                                      #   affecterg 4
+                                      #   affecterg %(b)s
     fsi;                              # fsi_2:
-    i := i-1;                         #   contenug 0
+    i := i-1;                         #   contenug %(i)s
                                       #   empiler 1
                                       #   sous
-                                      #   affecterg 0
+                                      #   affecterg %(i)s
   fait;                               #   bincond @ttq_1
                                       # fait_1:
-  ecrire(s, b);                       #   contenug 3
+  ecrire(s, b);                       #   contenug %(s)s
                                       #   ecrent
-                                      #   contenug 4
+                                      #   contenug %(b)s
                                       #   ecrbool
 fin                                   #   arrêt

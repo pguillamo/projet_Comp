@@ -5,13 +5,29 @@ import sys
 
 def gentest(f):
     labels = {}
+    definitions = {}
 
+    parsed_lines = []
     result_lines = []
-    instr_pattern = re.compile(r'^[^#]*#\s*(.*)$')
-    label_pattern = re.compile('^([a-zA-Z0-9_]+):$')
-    ref_pattern = re.compile('^@([a-zA-Z0-9_]+)$')
+
+    def_pattern = re.compile(r'^#\s*([a-z0-9_]+)\s*=\s*(.*[^\s])\s*$', re.I)
+    instr_pattern = re.compile(r'^[^#]+#\s*(.*)$')
+    label_pattern = re.compile('^([a-z0-9_]+):$', re.I)
+    ref_pattern = re.compile('^@([a-z0-9_]+)$', re.I)
+
     pc = 1
-    for line in f.readlines():
+
+    lines = f.readlines()
+
+
+    for line in lines:
+        definition = def_pattern.match(line)
+        if definition:
+            definitions[definition.group(1)] = definition.group(2)
+        else:
+            parsed_lines.append(line % definitions)
+
+    for line in parsed_lines:
         result = instr_pattern.match(line)
         if result:
             instr = result.group(1)
@@ -36,6 +52,10 @@ def gentest(f):
                     val = str(labels[label.group(1)])
                 else:
                     val = t_line[i]
+                if val in ('FIX', 'LOC'):
+                    val = '0'
+                elif val == 'MOD':
+                    val = '1'
                 result += val.rjust(7)
         result += '\n'
 
