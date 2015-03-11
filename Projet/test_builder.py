@@ -52,9 +52,9 @@ def gentest(f):
                     val = str(labels[label.group(1)])
                 else:
                     val = t_line[i]
-                if val in ('FIX', 'LOC'):
+                if val in ('FIX', 'LOC', 'faux'):
                     val = '0'
-                elif val == 'MOD':
+                elif val in ('MOD', 'vrai'):
                     val = '1'
                 result += val.rjust(7)
         result += '\n'
