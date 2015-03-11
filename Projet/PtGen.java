@@ -273,6 +273,9 @@ public class PtGen {
   private static int addr_debut;
   private static int tmpAddr;
 
+  private static int labelMain;
+  private static int curProcNbParams;
+
   // code des points de génération à compléter
   // -----------------------------------------
   public static void pt(int numGen) {
@@ -506,7 +509,26 @@ public class PtGen {
         }
         break;
 
-      // etc
+      // Traitement des procédures
+
+      case 100:
+        produire(BINCOND);
+        produire(0);
+        labelMain = ipo;
+        break;
+      case 101:
+        po[labelMain] = ipo+1;
+        break;
+      case 102:
+        curProcNbParams = 0;
+        break;
+      case 103:
+        curProcNbParams++;
+      case 105:
+        produire(RETOUR);
+        produire(curProcNbParams);
+        break;
+
 
       default:
         System.out.println("Point de génération non prévu dans votre liste");

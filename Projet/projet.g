@@ -87,14 +87,14 @@ type:
 ;
 
 decprocs:
-    (decproc ptvg)+
+    {PtGen.pt(100);} (decproc ptvg)+ {PtGen.pt(101);}
 ;
 
 decproc:
-    'proc'  ident  parfixe? parmod?
+    'proc' ident {PtGen.pt(102);} parfixe? parmod?
         consts?
         vars?
-        corps 
+        corps {PtGen.pt(105);}
 ;
 
 ptvg:
@@ -111,7 +111,7 @@ parfixe:
 ;
 
 pf:
-    type ident ( ',' ident )*  
+    type ident {PtGen.pt(103);} ( ',' ident {PtGen.pt(103);} )*
 ;
 
 parmod:
@@ -119,7 +119,7 @@ parmod:
 ;
 
 pm:
-    type ident ( ',' ident )*
+    type ident {PtGen.pt(103);} ( ',' ident {PtGen.pt(103);} )*
 ;
 
 instructions:
