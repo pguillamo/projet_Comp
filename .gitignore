@@ -8,3 +8,5 @@ Projet/*.tokens
 .project
 Projet/projetLexer.java
 Projet/projetParser.java
+Projet/libclass/PtGen.class
+Projet/libclass/projetParser.class
