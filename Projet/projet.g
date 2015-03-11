@@ -42,7 +42,7 @@ unitprog:
     'programme' ident ':'
         declarations
         corps
-        { System.out.println("succès, arret de la compilation "); }
+        { PtGen.pt(254); System.out.println("succès, arret de la compilation "); }
 ;
 
 unitmodule:
@@ -103,7 +103,7 @@ ptvg:
 ;
 
 corps:
-    'debut' instructions 'fin' {PtGen.pt(254);}
+    'debut' instructions 'fin'
 ;
 
 parfixe:
@@ -218,8 +218,8 @@ exp4:
 exp5:
     primaire 
     (
-        '*'   primaire
-      | 'div' primaire
+        '*' {PtGen.pt(22);} primaire {PtGen.pt(22);} {PtGen.pt(35);}
+      | 'div' {PtGen.pt(22);} primaire {PtGen.pt(22);} {PtGen.pt(36);}
     )*
 ;
 

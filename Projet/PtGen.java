@@ -371,6 +371,12 @@ public class PtGen {
       case 34:
         produire(SOUS);
         break;
+      case 35:
+        produire(MUL);
+        break;
+      case 36:
+        produire(DIV);
+        break;
       case 25:
         i = presentIdent(1);
         if (i == 0)
