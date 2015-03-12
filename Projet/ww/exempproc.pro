@@ -6,7 +6,7 @@ programme exempproc:
       mod (ent y)
     var ent j;                        #   réserver 1
   debut
-    j := 0                            #   empiler 0
+    j := 0;                           #   empiler 0
                                       #   affecterl 4 0
     y := x                            #   contenul 0 0
                                       #   affecterl 1 1

@@ -91,7 +91,7 @@ decprocs:
 ;
 
 decproc:
-    'proc' ident {PtGen.pt(102);} parfixe? parmod?
+    'proc' ident {PtGen.pt(102);} parfixe? parmod? {PtGen.pt(106);}
         consts?
         vars?
         corps {PtGen.pt(105);}
@@ -119,7 +119,7 @@ parmod:
 ;
 
 pm:
-    type ident {PtGen.pt(103);} ( ',' ident {PtGen.pt(103);} )*
+    type ident {PtGen.pt(104);} ( ',' ident {PtGen.pt(104);} )*
 ;
 
 instructions:

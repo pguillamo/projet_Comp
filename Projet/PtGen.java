@@ -220,7 +220,7 @@ public class PtGen {
 
   // autres variables et procédures fournies
   // ---------------------------------------
-  public static String trinome = "Matthieu Leportier, Antoine Pinsard, Pierre-Yves Guillamo";
+  public static String trinome = "Matthieu Leportier Antoine Pinsard Pierre-Yves Guillamo";
 
   private static int tCour; // type de l'expression compilée
   private static int vCour; // valeur de l'expression compilée le cas echeant
@@ -258,14 +258,14 @@ public class PtGen {
     bc = 1;
     ipo = 0;
     tCour = NEUTRE;
-    nbVarGlobales = 0;
+    varCounter = 0;
   } // initialisations
 
   // autres variables et procédures introduites par le trinome
 
   private static int idCour; // Stocke le dernier identifiant rencontré
   private static int catCour; // categorie de l'expression compilée
-  private static int nbVarGlobales;
+  private static int varCounter;
   private static EltTabSymb symbCour;
 
   private static int addr_bsifaux;
@@ -274,7 +274,7 @@ public class PtGen {
   private static int tmpAddr;
 
   private static int labelMain;
-  private static int curProcNbParams;
+  private static int nbParams;
 
   // code des points de génération à compléter
   // -----------------------------------------
@@ -294,7 +294,7 @@ public class PtGen {
 
       // Traitement des déclarations
       case 1:
-        if (presentIdent(1) != 0) {
+        if (presentIdent(bc) != 0) {
           UtilLex.messErr("Identifiant déjà défini : \""+ UtilLex.repId(UtilLex.numId) +"\"");
         }
         break;
@@ -324,10 +324,12 @@ public class PtGen {
         placeIdent(UtilLex.numId, CONSTANTE, tCour, vCour);
         break;
       case 11:
-        placeIdent(UtilLex.numId, VARGLOBALE, tCour, nbVarGlobales);
-        nbVarGlobales++;
+        if (bc == 1)
+            placeIdent(UtilLex.numId, VARGLOBALE, tCour, varCounter);
+        else
+            placeIdent(UtilLex.numId, VARLOCALE, tCour, varCounter);
+        varCounter++;
         break;
-
       // Traitement des expressions
       case 20:
         verifBool();
@@ -381,7 +383,7 @@ public class PtGen {
         produire(DIV);
         break;
       case 25:
-        i = presentIdent(1);
+        i = presentIdent(bc);
         if (i == 0)
           UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
         tCour = tabSymb[i].type;
@@ -402,7 +404,9 @@ public class PtGen {
         break;
 
       case 40:
-        i = presentIdent(1);
+        i = presentIdent(bc);
+        if (i == 0 && bc != 1)
+          i = presentIdent(1);
         if (i == 0)
           UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
         symbCour = tabSymb[i];
@@ -421,7 +425,10 @@ public class PtGen {
         break;
       case 42:
         produire(RESERVER);
-        produire(nbVarGlobales);
+        if (bc != 1) {
+          varCounter -= tabSymb[bc-1].info + 2;
+        }
+        produire(varCounter);
         break;
       case 43:
         switch (tCour) {
@@ -434,7 +441,7 @@ public class PtGen {
         }
         break;
       case 44:
-        i = presentIdent(1);
+        i = presentIdent(bc);
         if (i == 0)
           UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
         switch (tabSymb[i].type) {
@@ -520,16 +527,40 @@ public class PtGen {
         po[labelMain] = ipo+1;
         break;
       case 102:
-        curProcNbParams = 0;
+        if (presentIdent(bc) != 0) {
+          UtilLex.messErr("Identifiant déjà défini : \""+ UtilLex.repId(UtilLex.numId) +"\"");
+        }
+        placeIdent(UtilLex.numId, PROC, NEUTRE, ipo+1);
+        placeIdent(-1, PRIVEE, NEUTRE, 0);
+        bc = it+1;
         break;
       case 103:
-        curProcNbParams++;
+        if (presentIdent(bc) != 0) {
+          UtilLex.messErr("Identifiant déjà défini : \""+ UtilLex.repId(UtilLex.numId) +"\"");
+        }
+        placeIdent(UtilLex.numId, PARAMFIXE, tCour, tabSymb[bc-1].info);
+        System.out.println(""+ UtilLex.numId + " coucou "+ tabSymb[bc-1].info);
+        tabSymb[bc-1].info++;
+        break;
+      case 104:
+        if (presentIdent(bc) != 0) {
+          UtilLex.messErr("Identifiant déjà défini : \""+ UtilLex.repId(UtilLex.numId) +"\"");
+        }
+        placeIdent(UtilLex.numId, PARAMMOD, tCour, tabSymb[bc-1].info);
+        tabSymb[bc-1].info++;
+        break;
       case 105:
         produire(RETOUR);
-        produire(curProcNbParams);
+        produire(tabSymb[bc-1].info);
+        for (i = 0; i < tabSymb[bc-1].info; i++) {
+          tabSymb[bc+i].code = -1;
+        }
+        it = bc+i-1;
+        bc = 1;
         break;
-
-
+      case 106:
+        varCounter = tabSymb[bc-1].info + 2;
+        break;
       default:
         System.out.println("Point de génération non prévu dans votre liste");
         break;
