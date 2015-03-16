@@ -407,8 +407,7 @@ public class PtGen {
             produire(1);
             break;
           default:
-            //UtilLex.messErr("Catégorie \""+ tabSymb[i].categorie + "\" invalide");
-            break;
+            UtilLex.messErr("Catégorie \""+ tabSymb[i].categorie + "\" invalide");
         }
         break;
       case 26:
@@ -424,7 +423,7 @@ public class PtGen {
           UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
         identCour = i;
         if (tabSymb[identCour].categorie == CONSTANTE)
-          UtilLex.messErr("Impossible d'affecter une valeur à une constante");
+          UtilLex.messErr("Contexte inaproprié à une valeur constante");
         break;
       case 41:
         switch (tabSymb[identCour].type) {
