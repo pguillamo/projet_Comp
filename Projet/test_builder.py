@@ -46,17 +46,24 @@ def gentest(f):
                 result += t_line[i].rjust(4) + ' '
             elif i == 1:
                 result += ' ' + t_line[i].ljust(10)
-            else:
+            elif i == 2:
                 label = ref_pattern.match(t_line[i])
                 if label:
                     val = str(labels[label.group(1)])
                 else:
                     val = t_line[i]
-                if val in ('FIX', 'LOC', 'faux'):
+                if val == 'faux':
                     val = '0'
-                elif val in ('MOD', 'vrai'):
+                if val == 'vrai':
                     val = '1'
                 result += val.rjust(7)
+            else:
+                val = t_line[i]
+                if val in ('FIX', 'LOC'):
+                    val = '0'
+                elif val == 'MOD':
+                    val = '1'
+                result += val.rjust(4)
         result += '\n'
 
     return result

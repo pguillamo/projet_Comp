@@ -42,7 +42,7 @@ unitprog:
     'programme' ident ':'
         declarations
         corps
-        { PtGen.pt(254); System.out.println("succès, arret de la compilation "); }
+        {System.out.println("succès, arret de la compilation "); }
 ;
 
 unitmodule:
@@ -170,16 +170,16 @@ affouappel:
     ident {PtGen.pt(40);}
     (
         ':=' expression {PtGen.pt(41);} 
-      | (effixes (effmods)?)?  
+      | (effixes (effmods)?)? {PtGen.pt(107);}
     )
 ;
 
 effixes:
-    '(' (expression  (',' expression  )*)? ')'
+    '(' (expression  (',' expression   )*)? ')'
 ;
 
 effmods:
-    '(' (ident  (',' ident  )*)? ')'
+    '(' (ident {PtGen.pt(108);} (',' ident {PtGen.pt(108);} )*)? ')'
 ; 
 
 expression:

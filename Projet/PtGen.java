@@ -266,7 +266,7 @@ public class PtGen {
   private static int idCour; // Stocke le dernier identifiant rencontré
   private static int catCour; // categorie de l'expression compilée
   private static int varCounter;
-  private static EltTabSymb symbCour;
+  private static int identCour;
 
   private static int addr_bsifaux;
   private static int addr_bincond;
@@ -282,11 +282,9 @@ public class PtGen {
     int cat, i;
     switch (numGen) {
       case 255:
+        produire(ARRET);
         afftabSymb(); constGen(); constObj();
         System.out.println("Pile de reprise : "+ pileRep);
-        break;
-      case 254:
-        produire(ARRET);
         break;
       case 0:
         initialisations();
@@ -396,6 +394,20 @@ public class PtGen {
             produire(CONTENUG);
             produire(tabSymb[i].info);
             break;
+          case VARLOCALE:
+          case PARAMFIXE:
+            produire(CONTENUL);
+            produire(tabSymb[i].info);
+            produire(0);
+            break;
+          case PARAMMOD:
+            produire(CONTENUL);
+            produire(tabSymb[i].info);
+            produire(1);
+            break;
+          default:
+            //UtilLex.messErr("Catégorie \""+ tabSymb[i].categorie + "\" invalide");
+            break;
         }
         break;
       case 26:
@@ -409,10 +421,12 @@ public class PtGen {
           i = presentIdent(1);
         if (i == 0)
           UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
-        symbCour = tabSymb[i];
+        identCour = i;
+        if (tabSymb[identCour].categorie == CONSTANTE)
+          UtilLex.messErr("Impossible d'affecter une valeur à une constante");
         break;
       case 41:
-        switch (symbCour.type) {
+        switch (tabSymb[identCour].type) {
           case BOOL:
             verifBool();
             break;
@@ -420,8 +434,24 @@ public class PtGen {
             verifEnt();
             break;
         }
-        produire(AFFECTERG);
-        produire(symbCour.info);
+        switch (tabSymb[identCour].categorie) {
+          case VARGLOBALE:
+            produire(AFFECTERG);
+            produire(tabSymb[identCour].info);
+            break;
+          case PARAMMOD:
+            produire(AFFECTERL);
+            produire(tabSymb[identCour].info);
+            produire(1);
+            break;
+          case VARLOCALE:
+            produire(AFFECTERL);
+            produire(tabSymb[identCour].info);
+            produire(0);
+            break;
+          default:
+            UtilLex.messErr("Catégorie \""+ tabSymb[identCour].categorie + "\" invalide pour affectation");
+        }
         break;
       case 42:
         produire(RESERVER);
@@ -539,7 +569,6 @@ public class PtGen {
           UtilLex.messErr("Identifiant déjà défini : \""+ UtilLex.repId(UtilLex.numId) +"\"");
         }
         placeIdent(UtilLex.numId, PARAMFIXE, tCour, tabSymb[bc-1].info);
-        System.out.println(""+ UtilLex.numId + " coucou "+ tabSymb[bc-1].info);
         tabSymb[bc-1].info++;
         break;
       case 104:
@@ -560,6 +589,39 @@ public class PtGen {
         break;
       case 106:
         varCounter = tabSymb[bc-1].info + 2;
+        break;
+      case 107:
+        if (tabSymb[identCour].categorie != PROC) {
+          UtilLex.messErr("Proécédure attendue");
+        }
+        produire(APPEL);
+        produire(tabSymb[identCour].info);
+        produire(tabSymb[identCour+1].info);
+        break;
+      case 108:
+        i = presentIdent(bc);
+        if (i == 0 && bc != 1)
+          i = presentIdent(1);
+        if (i == 0)
+          UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
+        switch (tabSymb[i].categorie) {
+          case VARGLOBALE:
+            produire(EMPILERADG);
+            produire(tabSymb[i].info);
+            break;
+          case VARLOCALE:
+            produire(EMPILERADL);
+            produire(tabSymb[i].info);
+            produire(0);
+            break;
+          case PARAMMOD:
+            produire(EMPILERADL);
+            produire(tabSymb[i].info);
+            produire(1);
+            break;
+          default:
+            UtilLex.messErr("Catégorie invalide : "+tabSymb[i].categorie);
+        }
         break;
       default:
         System.out.println("Point de génération non prévu dans votre liste");
