@@ -274,7 +274,6 @@ public class PtGen {
   private static int tmpAddr;
 
   private static int labelMain;
-  private static int nbParams;
 
   // code des points de génération à compléter
   // -----------------------------------------
