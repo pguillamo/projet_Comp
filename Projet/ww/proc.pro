@@ -77,7 +77,7 @@ programme exo6:
     fsi                               # fsi_2:
   fin;                                #   retour 1
 debut                                 # main:
-  recurs()(res);                      #   empieradg %(res)s
+  recurs()(res);                      #   empileradg %(res)s
                                       #   appel @proc_recurs 1
   ecrire(res);                        #   contenug %(res)s
                                       #   ecrent

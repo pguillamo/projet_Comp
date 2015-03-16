@@ -382,6 +382,8 @@ public class PtGen {
         break;
       case 25:
         i = presentIdent(bc);
+        if (i == 0 && bc != 1)
+          i = presentIdent(1);
         if (i == 0)
           UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
         tCour = tabSymb[i].type;
@@ -472,6 +474,8 @@ public class PtGen {
         break;
       case 44:
         i = presentIdent(bc);
+        if (i == 0 && bc != 1)
+          i = presentIdent(1);
         if (i == 0)
           UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
         switch (tabSymb[i].type) {
@@ -482,8 +486,24 @@ public class PtGen {
             produire(LIRENT);
             break;
         }
-        produire(AFFECTERG);
-        produire(tabSymb[i].info);
+        switch (tabSymb[i].categorie) {
+          case VARGLOBALE:
+            produire(AFFECTERG);
+            produire(tabSymb[i].info);
+            break;
+          case PARAMMOD:
+            produire(AFFECTERL);
+            produire(tabSymb[i].info);
+            produire(1);
+            break;
+          case VARLOCALE:
+            produire(AFFECTERL);
+            produire(tabSymb[i].info);
+            produire(0);
+            break;
+          default:
+            UtilLex.messErr("Catégorie \""+ tabSymb[i].categorie + "\" invalide pour affectation");
+        }
         break;
 
       // Traitement si/ttq/cond
