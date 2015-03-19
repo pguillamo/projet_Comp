@@ -12,7 +12,7 @@ projet: projet.tokens
 %.tokens: %.g
 	$(JAVA) org.antlr.Tool $<
 
-build: $(WW)/simple.gen $(WW)/exempcond.gen $(WW)/sittq.gen $(WW)/exempproc.pro $(WW)/ $(WW)/proc.pro $(WW)/ess1.pro $(WW)/m1ess1.pro $(WW)/m2ess1.pro
+build: $(WW)/simple.gen $(WW)/exempcond.gen $(WW)/sittq.gen $(WW)/exempproc.gen $(WW)/proc.gen $(WW)/ess1.gen $(WW)/m1ess1.gen $(WW)/m2ess1.gen
 
 $(WW)/%.gen: $(WW)/%.pro
 	echo -ne "$(basename $<)\n\n" | $(JAVA) projet
