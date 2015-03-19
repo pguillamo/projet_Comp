@@ -2,7 +2,7 @@
 # min = 1
 # max = 2
 # ajout2_y = 0 FIX
-module m1ess1:
+module m2ess1:
   def init2, ajout2, ecr2;
   var ent n, min, max;
   proc init2
