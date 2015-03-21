@@ -23,7 +23,7 @@ module m1ess1:
                                       #   bincond @fsi_1
     sinon                             # sinon_1:
       si y < min alors                #   contenul %(ajout1_y)s
-                                      #   contenug %(min)
+                                      #   contenug %(min)s
                                       #   inf
                                       #   bsifaux @sinon_2
         min := y                      #   contenul %(ajout1_y)s
@@ -38,7 +38,7 @@ module m1ess1:
                                       #   affecterg %(max)s
         fsi                           # fsi_1:
       fsi                             # fsi_2:
-    fsi;                              # fsi_2:
+    fsi;                              # fsi_3:
     n := n + 1;                       #   contenug %(n)s
                                       #   empiler 1
                                       #   add

@@ -281,9 +281,11 @@ public class PtGen {
     int cat, i;
     switch (numGen) {
       case 255:
-        produire(ARRET);
         afftabSymb(); constGen(); constObj();
         System.out.println("Pile de reprise : "+ pileRep);
+        break;
+      case 254:
+        produire(ARRET);
         break;
       case 0:
         initialisations();

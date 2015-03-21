@@ -34,8 +34,8 @@ options {
   catch (RecognitionException e) {reportError (e) ; throw e ; }}
 
 unite:
-    unitprog {PtGen.pt(255);} EOF
-  | unitmodule  EOF
+    unitprog {PtGen.pt(254);} {PtGen.pt(255);} EOF
+  | unitmodule {PtGen.pt(255);} EOF
 ;
 
 unitprog:
