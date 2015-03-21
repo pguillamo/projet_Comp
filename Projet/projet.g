@@ -67,8 +67,9 @@ partieref:
 ;
 
 specif:
-    ident ( 'fixe' '(' type  ( ',' type  )* ')' )?
-          ( 'mod'  '(' type  ( ',' type  )* ')' )? 
+    ident {PtGen.pt(120);}
+      ( 'fixe' '(' type {PtGen.pt(121);} (',' type {PtGen.pt(121);})* ')')?
+      ( 'mod'  '(' type {PtGen.pt(121);} (',' type {PtGen.pt(121);})* ')')?
 ;
 
 consts:

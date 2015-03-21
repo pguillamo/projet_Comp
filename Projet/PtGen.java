@@ -609,12 +609,20 @@ public class PtGen {
         varCounter = tabSymb[bc-1].info + 2;
         break;
       case 107:
-        if (tabSymb[identCour].categorie != PROC) {
-          UtilLex.messErr("Proécédure attendue");
+        if (tabSymb[identCour].categorie != PROC &&
+            tabSymb[identCour].categorie != REF)
+        {
+          UtilLex.messErr("Procédure attendue");
         }
         produire(APPEL);
         produire(tabSymb[identCour].info);
-        produire(tabSymb[identCour+1].info);
+        if (tabSymb[identCour].categorie == REF) {
+          vecteurTrans(Descripteur.REFEXT);
+          produire(desc.tabRef[tabSymb[identCour].info-1].nbParam);
+        }
+        else {
+          produire(tabSymb[identCour+1].info);
+        }
         break;
       case 108:
         i = presentIdent(bc);
@@ -640,6 +648,16 @@ public class PtGen {
           default:
             UtilLex.messErr("Catégorie invalide : "+tabSymb[i].categorie);
         }
+        break;
+
+      // Compilation séparée
+      case 120:
+        desc.tabRef[desc.nbRef] = new EltRef(UtilLex.repId(UtilLex.numId), 0);
+        desc.nbRef++;
+        placeIdent(UtilLex.numId, REF, NEUTRE, desc.nbRef);
+        break;
+      case 121:
+        desc.tabRef[desc.nbRef-1].nbParam++;
         break;
       default:
         System.out.println("Point de génération non prévu dans votre liste");
