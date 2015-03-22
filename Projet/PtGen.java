@@ -277,6 +277,16 @@ public class PtGen {
   private static int labelMain;
   private static String nomFichier;
 
+  private static void affvTrans() {
+    System.out.print("Vecteurs de translation :\n\t");
+    for (int i=1; i <= ipo; i++) {
+      if (vTrans[i] != -1) {
+        System.out.print("("+ i +","+ vTrans[i] +")");
+      }
+    }
+    System.out.print("\n");
+  }
+
   // code des points de génération à compléter
   // -----------------------------------------
   public static void pt(int numGen) {
@@ -288,6 +298,7 @@ public class PtGen {
         System.out.println("Pile de reprise : "+ pileRep);
         System.out.println("\nDescripteur :\n");
         System.out.println(desc.toString());
+        affvTrans();
         break;
       case 254:
         desc.ecrireDesc("ww/" + nomFichier);
@@ -427,6 +438,7 @@ public class PtGen {
           case VARGLOBALE:
             produire(CONTENUG);
             produire(tabSymb[i].info);
+            vecteurTrans(Descripteur.TRANSDON);
             break;
           case VARLOCALE:
           case PARAMFIXE:
@@ -471,6 +483,7 @@ public class PtGen {
           case VARGLOBALE:
             produire(AFFECTERG);
             produire(tabSymb[identCour].info);
+            vecteurTrans(Descripteur.TRANSDON);
             break;
           case PARAMMOD:
             produire(AFFECTERL);
@@ -544,6 +557,7 @@ public class PtGen {
         verifBool();
         produire(BSIFAUX);
         produire(0);
+        vecteurTrans(Descripteur.TRANSCODE);
         pileRep.empiler(ipo);
         break;
 
@@ -551,6 +565,7 @@ public class PtGen {
       case 51:
         produire(BINCOND);
         produire(0);
+        vecteurTrans(Descripteur.TRANSCODE);
         po[pileRep.depiler()] = ipo+1;
         pileRep.empiler(ipo);
         break;
@@ -567,6 +582,7 @@ public class PtGen {
         addr_debut = pileRep.depiler();
         produire(BINCOND);
         produire(addr_debut);
+        vecteurTrans(Descripteur.TRANSCODE);
         po[addr_bsifaux] = ipo+1;
         break;
 
@@ -579,6 +595,7 @@ public class PtGen {
         addr_bincond = pileRep.depiler();
         produire(BINCOND);
         produire(addr_bincond);
+        vecteurTrans(Descripteur.TRANSCODE);
         pileRep.empiler(ipo);
         po[addr_bsifaux] = ipo+1;
         break;
@@ -586,6 +603,7 @@ public class PtGen {
         addr_bsifaux = pileRep.depiler();
         produire(BINCOND);
         produire(0);
+        vecteurTrans(Descripteur.TRANSCODE);
         pileRep.empiler(ipo);
         po[addr_bsifaux] = ipo+1;
         break;
