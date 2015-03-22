@@ -35,7 +35,7 @@ options {
 
 unite:
     unitprog {PtGen.pt(254);} {PtGen.pt(255);} EOF
-  | unitmodule {PtGen.pt(255);} EOF
+  | unitmodule {PtGen.pt(251);} {PtGen.pt(255);} EOF
 ;
 
 unitprog:
@@ -59,7 +59,7 @@ declarations:
 ;
 
 partiedef:
-    'def' ident  (',' ident )* ptvg
+    'def' ident {PtGen.pt(130);} (',' ident {PtGen.pt(130);} )* ptvg
 ;
 
 partieref:

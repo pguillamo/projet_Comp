@@ -300,6 +300,22 @@ public class PtGen {
       case 252:
         desc.unite = "module";
         break;
+      case 251:
+        for (int j = 1; j <= desc.nbDef; j++) {
+          for (int k = bc; k <= it; k++) {
+            if (tabSymb[k].categorie != PROC)
+              continue;
+            if (desc.tabDef[j].nomProc.equals(UtilLex.repId(tabSymb[k].code))) {
+              desc.tabDef[j].adPo = tabSymb[k].info;
+              desc.tabDef[j].nbParam = tabSymb[k+1].info;
+              break;
+            }
+          }
+          if (desc.tabDef[j].adPo == -1) {
+            UtilLex.messErr("Undefined procedure "+ desc.tabDef[j].nomProc);
+          }
+        }
+        break;
       case 0:
         initialisations();
         break;
@@ -681,6 +697,10 @@ public class PtGen {
         break;
       case 121:
         desc.tabRef[desc.nbRef].nbParam++;
+        break;
+      case 130:
+        desc.nbDef++;
+        desc.tabDef[desc.nbDef] = new EltDef(UtilLex.repId(UtilLex.numId), 0, 0);
         break;
       default:
         System.out.println("Point de génération non prévu dans votre liste");
