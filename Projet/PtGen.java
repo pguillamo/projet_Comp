@@ -259,6 +259,7 @@ public class PtGen {
     ipo = 0;
     tCour = NEUTRE;
     varCounter = 0;
+    desc.tailleGlobaux = 0;
   } // initialisations
 
   // autres variables et procédures introduites par le trinome
@@ -274,6 +275,7 @@ public class PtGen {
   private static int tmpAddr;
 
   private static int labelMain;
+  private static String nomFichier;
 
   // code des points de génération à compléter
   // -----------------------------------------
@@ -282,13 +284,18 @@ public class PtGen {
     switch (numGen) {
       case 255:
         afftabSymb(); constGen(); constObj();
+        desc.tailleCode = ipo;
         System.out.println("Pile de reprise : "+ pileRep);
+        System.out.println("\nDescripteur :\n");
+        System.out.println(desc.toString());
         break;
       case 254:
+        desc.ecrireDesc(nomFichier);
         produire(ARRET);
         break;
       case 253:
         desc.unite = "programme";
+        nomFichier = UtilLex.repId(UtilLex.numId);
         break;
       case 252:
         desc.unite = "module";
@@ -329,8 +336,10 @@ public class PtGen {
         placeIdent(UtilLex.numId, CONSTANTE, tCour, vCour);
         break;
       case 11:
-        if (bc == 1)
+        if (bc == 1) {
             placeIdent(UtilLex.numId, VARGLOBALE, tCour, varCounter);
+            desc.tailleGlobaux++;
+        }
         else
             placeIdent(UtilLex.numId, VARLOCALE, tCour, varCounter);
         varCounter++;
@@ -632,7 +641,7 @@ public class PtGen {
         produire(tabSymb[identCour].info);
         if (tabSymb[identCour].categorie == REF) {
           vecteurTrans(Descripteur.REFEXT);
-          produire(desc.tabRef[tabSymb[identCour].info-1].nbParam);
+          produire(desc.tabRef[tabSymb[identCour].info].nbParam);
         }
         else {
           produire(tabSymb[identCour+1].info);
@@ -666,12 +675,12 @@ public class PtGen {
 
       // Compilation séparée
       case 120:
-        desc.tabRef[desc.nbRef] = new EltRef(UtilLex.repId(UtilLex.numId), 0);
         desc.nbRef++;
+        desc.tabRef[desc.nbRef] = new EltRef(UtilLex.repId(UtilLex.numId), 0);
         placeIdent(UtilLex.numId, REF, NEUTRE, desc.nbRef);
         break;
       case 121:
-        desc.tabRef[desc.nbRef-1].nbParam++;
+        desc.tabRef[desc.nbRef].nbParam++;
         break;
       default:
         System.out.println("Point de génération non prévu dans votre liste");

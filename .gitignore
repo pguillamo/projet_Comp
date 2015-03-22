@@ -1,5 +1,6 @@
 Projet/ww/*.gen
 Projet/ww/*.obj
+Projet/ww/*.desc
 Projet/error.log
 Projet/*.tokens
 *.sw[po]
