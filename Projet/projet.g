@@ -39,14 +39,14 @@ unite:
 ;
 
 unitprog:
-    'programme' ident ':'
+    'programme' ident {PtGen.pt(253);} ':'
         declarations
         corps
         {System.out.println("succès, arret de la compilation "); }
 ;
 
 unitmodule:
-    'module' ident ':'
+    'module' ident {PtGen.pt(252);} ':'
         declarations
 ;
 

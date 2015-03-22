@@ -287,6 +287,12 @@ public class PtGen {
       case 254:
         produire(ARRET);
         break;
+      case 253:
+        desc.unite = "programme";
+        break;
+      case 252:
+        desc.unite = "module";
+        break;
       case 0:
         initialisations();
         break;
@@ -456,11 +462,13 @@ public class PtGen {
         }
         break;
       case 42:
-        produire(RESERVER);
-        if (bc != 1) {
-          varCounter -= tabSymb[bc-1].info + 2;
+        if (desc.unite.equals("programme")) {
+          produire(RESERVER);
+          if (bc != 1) {
+            varCounter -= tabSymb[bc-1].info + 2;
+          }
+          produire(varCounter);
         }
-        produire(varCounter);
         break;
       case 43:
         switch (tCour) {
@@ -569,12 +577,16 @@ public class PtGen {
       // Traitement des procédures
 
       case 100:
-        produire(BINCOND);
-        produire(0);
-        labelMain = ipo;
+        if (desc.unite.equals("programme")) {
+          produire(BINCOND);
+          produire(0);
+          labelMain = ipo;
+        }
         break;
       case 101:
-        po[labelMain] = ipo+1;
+        if (desc.unite.equals("programme")) {
+          po[labelMain] = ipo+1;
+        }
         break;
       case 102:
         if (presentIdent(bc) != 0) {
