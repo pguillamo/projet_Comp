@@ -290,7 +290,7 @@ public class PtGen {
         System.out.println(desc.toString());
         break;
       case 254:
-        desc.ecrireDesc(nomFichier);
+        desc.ecrireDesc("ww/" + nomFichier);
         produire(ARRET);
         break;
       case 253:

@@ -36,5 +36,6 @@ $(WW)/%.test.gen: $(WW)/%.pro
 clean:
 	rm -f $(WW)/*.gen
 	rm -f $(WW)/*.obj
+	rm -f $(WW)/*.desc
 	rm -f *.tokens
 
