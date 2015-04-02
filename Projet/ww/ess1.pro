@@ -38,7 +38,7 @@ debut
                                       #   empiler %(moyx)s
                                       #   inf
                                       #   bsifaux @sinon_2
-        ajout1(x)                     #   contenug %(x)s
+        ajout1(x)                     #   contenug %(s)
                                       #   appel %(ajout1)s
                                       #   bincond @fsi_2
       sinon                           # sinon_2:

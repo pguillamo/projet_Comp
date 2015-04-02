@@ -69,7 +69,7 @@ partieref:
 specif:
     ident {PtGen.pt(120);}
       ( 'fixe' '(' type {PtGen.pt(121);} (',' type {PtGen.pt(121);})* ')')?
-      ( 'mod'  '(' type {PtGen.pt(121);} (',' type {PtGen.pt(121);})* ')')?
+      ( 'mod'  '(' type {PtGen.pt(122);} (',' type {PtGen.pt(122);})* ')')?
 ;
 
 consts:
@@ -171,12 +171,12 @@ affouappel:
     ident {PtGen.pt(40);}
     (
         ':=' expression {PtGen.pt(41);} 
-      | (effixes (effmods)?)? {PtGen.pt(107);}
+      | {PtGen.pt(139);} (effixes (effmods)?)? {PtGen.pt(107);}
     )
 ;
 
 effixes:
-    '(' (expression  (',' expression   )*)? ')'
+    '(' (expression {PtGen.pt(140);}  (',' expression {PtGen.pt(140);}  )*)? ')'
 ;
 
 effmods:

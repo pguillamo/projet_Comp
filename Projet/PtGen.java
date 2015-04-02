@@ -277,6 +277,8 @@ public class PtGen {
   private static int labelMain;
   private static String nomFichier;
 
+  private static int superParamCounter;
+
   private static void affvTrans() {
     System.out.print("Vecteurs de translation :\n\t");
     for (int i=1; i <= ipo; i++) {
@@ -669,6 +671,8 @@ public class PtGen {
         if (tabSymb[identCour].categorie != PROC &&
             tabSymb[identCour].categorie != REF)
         {
+          afftabSymb();
+          System.out.println(identCour);
           UtilLex.messErr("Procédure attendue");
         }
         produire(APPEL);
@@ -687,6 +691,19 @@ public class PtGen {
           i = presentIdent(1);
         if (i == 0)
           UtilLex.messErr("identificateur \""+ UtilLex.repId(UtilLex.numId) +"\" non déclaré");
+        switch (tabSymb[identCour+superParamCounter+2].type) {
+          case ENT:
+            verifEnt();
+            break;
+          case BOOL:
+            verifBool();
+            break;
+          default:
+            UtilLex.messErr("Type invalide");
+        }
+        if (tabSymb[identCour+superParamCounter+2].categorie != PARAMMOD) {
+          UtilLex.messErr("Catégorie incorrect");
+        }
         switch (tabSymb[i].categorie) {
           case VARGLOBALE:
             produire(EMPILERADG);
@@ -705,20 +722,51 @@ public class PtGen {
           default:
             UtilLex.messErr("Catégorie invalide : "+tabSymb[i].categorie);
         }
+        superParamCounter++;
         break;
 
       // Compilation séparée
       case 120:
+        if (presentIdent(bc) != 0) {
+          UtilLex.messErr("Identifiant déjà défini : \""+ UtilLex.repId(UtilLex.numId) +"\"");
+        }
         desc.nbRef++;
         desc.tabRef[desc.nbRef] = new EltRef(UtilLex.repId(UtilLex.numId), 0);
         placeIdent(UtilLex.numId, REF, NEUTRE, desc.nbRef);
+        placeIdent(-1, PRIVEE, NEUTRE, 0);
         break;
       case 121:
+        placeIdent(-1, PARAMFIXE, tCour, desc.tabRef[desc.nbRef].nbParam);
+        tabSymb[it-desc.tabRef[desc.nbRef].nbParam-1].info++;
+        desc.tabRef[desc.nbRef].nbParam++;
+        break;
+      case 122:
+        placeIdent(-1, PARAMMOD, tCour, desc.tabRef[desc.nbRef].nbParam);
+        tabSymb[it-desc.tabRef[desc.nbRef].nbParam-1].info++;
         desc.tabRef[desc.nbRef].nbParam++;
         break;
       case 130:
         desc.nbDef++;
         desc.tabDef[desc.nbDef] = new EltDef(UtilLex.repId(UtilLex.numId), 0, 0);
+        break;
+      case 139:
+        superParamCounter = 0;
+        break;
+      case 140:
+        switch (tabSymb[identCour+superParamCounter+2].type) {
+          case ENT:
+            verifEnt();
+            break;
+          case BOOL:
+            verifBool();
+            break;
+          default:
+            UtilLex.messErr("Type invalide");
+        }
+        if (tabSymb[identCour+superParamCounter+2].categorie != PARAMFIXE) {
+          UtilLex.messErr("Catégorie incorrect");
+        }
+        superParamCounter++;
         break;
       default:
         System.out.println("Point de génération non prévu dans votre liste");
