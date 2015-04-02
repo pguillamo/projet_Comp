@@ -18,7 +18,7 @@ module m1ess1:
                                       #   bsifaux @sinon_1
       min := y;                       #   contenul %(ajout1_y)s
                                       #   affecterg %(min)s
-      max := y                        #   contenul %(ajout1_y)s 
+      max := y                        #   contenul %(ajout1_y)s
                                       #   affecterg %(max)s
                                       #   bincond @fsi_1
     sinon                             # sinon_1:

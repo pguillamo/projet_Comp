@@ -746,6 +746,12 @@ public class PtGen {
         desc.tabRef[desc.nbRef].nbParam++;
         break;
       case 130:
+        // Vérification si l'identificateur n'est pas déjà définit
+        for (i = 1; i < desc.nbDef+1; i++) {
+          if (desc.tabDef[i].nomProc.equals(UtilLex.repId(UtilLex.numId))) {
+            UtilLex.messErr("Identificateur déjà définit");
+          }
+        }
         desc.nbDef++;
         desc.tabDef[desc.nbDef] = new EltDef(UtilLex.repId(UtilLex.numId), 0, 0);
         break;
