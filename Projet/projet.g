@@ -1,5 +1,5 @@
 // Grammaire du langage PROJET
-// COMP L3  
+// COMP L3
 // Anne Grazon, Véronique Masson
 // il convient d'y insérer les appels à {PtGen.pt(k);}
 // relancer Antlr après chaque modification et raffraichir le projet Eclipse le cas échéant
@@ -12,11 +12,11 @@ options {
   language=Java; k=1;
 }
 
-@header {           
+@header {
   import java.io.IOException;
   import java.io.DataInputStream;
   import java.io.FileInputStream;
-} 
+}
 
 
 // partie syntaxique :  description de la grammaire //
@@ -55,7 +55,7 @@ declarations:
     partieref?
     consts?
     vars?
-    decprocs? 
+    decprocs?
 ;
 
 partiedef:
@@ -73,7 +73,7 @@ specif:
 ;
 
 consts:
-    'const' ( ident {PtGen.pt(1);} '=' valeur {PtGen.pt(10);}  ptvg  )+ 
+    'const' ( ident {PtGen.pt(1);} '=' valeur {PtGen.pt(10);}  ptvg  )+
 ;
 
 vars:
@@ -100,7 +100,7 @@ decproc:
 
 ptvg:
     ';'
-  | 
+  |
 ;
 
 corps:
@@ -138,7 +138,7 @@ instruction:
 ;
 
 inssi:
-    'si' expression {PtGen.pt(50);} 
+    'si' expression {PtGen.pt(50);}
         'alors'  instructions
         ( {PtGen.pt(51);} 'sinon' instructions)?
         'fsi' {PtGen.pt(52);}
@@ -146,10 +146,10 @@ inssi:
 ;
 
 inscond:
-    'cond' {PtGen.pt(55);}   expression {PtGen.pt(50);} ':' instructions 
-        ({PtGen.pt(56);} ',' expression {PtGen.pt(50);} ':' instructions)* 
+    'cond' {PtGen.pt(55);}   expression {PtGen.pt(50);} ':' instructions
+        ({PtGen.pt(56);} ',' expression {PtGen.pt(50);} ':' instructions)*
         ({PtGen.pt(57);} 'aut' instructions )?
-        'fcond' {PtGen.pt(58);} 
+        'fcond' {PtGen.pt(58);}
 ;
 
 boucle:
@@ -159,7 +159,7 @@ boucle:
 
 lecture:
     'lire' '(' ident {PtGen.pt(44);}
-         ( ',' ident {PtGen.pt(44);}  )* ')' 
+         ( ',' ident {PtGen.pt(44);}  )* ')'
 ;
 
 ecriture:
@@ -170,7 +170,7 @@ ecriture:
 affouappel:
     ident {PtGen.pt(40);}
     (
-        ':=' expression {PtGen.pt(41);} 
+        ':=' expression {PtGen.pt(41);}
       | {PtGen.pt(139);} (effixes (effmods)?)? {PtGen.pt(107);}
     )
 ;
@@ -181,7 +181,7 @@ effixes:
 
 effmods:
     '(' (ident {PtGen.pt(108);} (',' ident {PtGen.pt(108);} )*)? ')'
-; 
+;
 
 expression:
     (exp1) ('ou' {PtGen.pt(20);} exp1 {PtGen.pt(20);} {PtGen.pt(27);} )*
@@ -193,11 +193,11 @@ exp1:
 
 exp2:
     'non' exp2 {PtGen.pt(20);} {PtGen.pt(28);}
-  | exp3  
+  | exp3
 ;
 
 exp3:
-    exp4 
+    exp4
     (
         '='  {PtGen.pt(22);} exp4 {PtGen.pt(22);} {PtGen.pt(23);}
       | '<>' {PtGen.pt(22);} exp4 {PtGen.pt(22);} {PtGen.pt(29);}
@@ -217,7 +217,7 @@ exp4:
 ;
 
 exp5:
-    primaire 
+    primaire
     (
         '*' {PtGen.pt(22);} primaire {PtGen.pt(22);} {PtGen.pt(35);}
       | 'div' {PtGen.pt(22);} primaire {PtGen.pt(22);} {PtGen.pt(36);}
@@ -226,7 +226,7 @@ exp5:
 
 primaire:
     valeur {PtGen.pt(26);}
-  | ident  {PtGen.pt(25);} 
+  | ident  {PtGen.pt(25);}
   | '(' expression ')'
 ;
 
@@ -240,8 +240,8 @@ valeur:
 
 // partie lexicale  : cette partie ne doit pas être modifiée  //
 // les unités lexicales de ANTLR doivent commencer par une majuscule
-// attention : ANTLR n'autorise pas certains traitements sur les unités lexicales, 
-// il est alors nécessaire de passer par un non-terminal intermédiaire 
+// attention : ANTLR n'autorise pas certains traitements sur les unités lexicales,
+// il est alors nécessaire de passer par un non-terminal intermédiaire
 // exemple : pour l'unité lexicale INT, le non-terminal nbentier a dû être introduit
 
 
@@ -257,7 +257,7 @@ ident:
 // la table des symboles n'est pas gérée au niveau lexical
 
 
-ID: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')* ; 
+ID: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')* ;
 
 // zone purement lexicale //
 
