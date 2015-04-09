@@ -16,10 +16,10 @@
  *   ---------------                                                             *
  *     void UtilLex.messErr(String m)  affichage de m et arrêt compilation       *
  *     String UtilLex.repId(int nId) délivre l'ident de codage nId               *
- *     
- *********************************************************************************     
+ *
+ *********************************************************************************
  *     METHODES FOURNIES PAR LA CLASSE PtGen.java                                *
- *     constGen() et constObj()  fournissent les deux fichiers objets            *  
+ *     constGen() et constObj()  fournissent les deux fichiers objets            *
  *     void afftabSymb()  affiche la table des symboles                          *
  *********************************************************************************/
 

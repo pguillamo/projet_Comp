@@ -1,6 +1,6 @@
 // Grammaire du langage PROJET
 // COMP L3
-// Anne Grazon, Véronique Masson
+// Matthieu Leportier, Antoine Pinsard, Pierre-Yves Guillamo
 // il convient d'y insérer les appels à {PtGen.pt(k);}
 // relancer Antlr après chaque modification et raffraichir le projet Eclipse le cas échéant
 
